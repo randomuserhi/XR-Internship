@@ -1,0 +1,98 @@
+{
+  "main": {
+    "id": "c9e82ee158baae20",
+    "type": "split",
+    "children": [
+      {
+        "id": "4d1524e3a1ce5be8",
+        "type": "leaf",
+        "state": {
+          "type": "empty",
+          "state": {}
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "74a43709c012d28c",
+    "type": "split",
+    "children": [
+      {
+        "id": "88c1dd2d99a01d17",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4cb355aa99f38d35",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "57d23793388a7ac6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "Interaction",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 432
+  },
+  "right": {
+    "id": "fee86efc43eddda0",
+    "type": "split",
+    "children": [
+      {
+        "id": "e195ff3fa7ac74fc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "acb1b38d34592366",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "4cb355aa99f38d35",
+  "lastOpenFiles": [
+    "Toolkits/Docs/ITK/Interaction Toolkit.md",
+    "Toolkits/Docs/ITK/ITKHand.md",
+    "Building and Deploying.md",
+    "Getting Started.md",
+    "Toolkits/Docs/FTK/Fields Toolkit.md",
+    "Toolkits/Docs/LTK/Light Toolkit.md",
+    "Toolkits/Docs/MTK/Menu Toolkit.md",
+    "Toolkits/Docs/NTK/Network Toolkit.md",
+    "Toolkits/Docs/VRTK/Virtual Reality Toolkit.md",
+    "Toolkits/Getting started with toolkits.md"
+  ]
+}

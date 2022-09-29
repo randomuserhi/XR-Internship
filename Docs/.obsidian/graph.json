@@ -1,0 +1,79 @@
+{
+  "collapse-filter": true,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "collapse-color-groups": true,
+  "colorGroups": [
+    {
+      "query": "path:(Formatting OR Templates)",
+      "color": {
+        "a": 1,
+        "rgb": 14963662
+      }
+    },
+    {
+      "query": "file:(Engi1151 Computational Tools for Engineers and Scientists)",
+      "color": {
+        "a": 1,
+        "rgb": 16755200
+      }
+    },
+    {
+      "query": "file:(COMP1101 Programming (Black))",
+      "color": {
+        "a": 1,
+        "rgb": 65425
+      }
+    },
+    {
+      "query": "file:(COMP1081 Algorithms and Data Structures)",
+      "color": {
+        "a": 1,
+        "rgb": 1966335
+      }
+    },
+    {
+      "query": "file:(COMP1071 Computer Systems)",
+      "color": {
+        "a": 1,
+        "rgb": 16711680
+      }
+    },
+    {
+      "query": "file:(COMP1051 Computational Thinking)",
+      "color": {
+        "a": 1,
+        "rgb": 10027263
+      }
+    },
+    {
+      "query": "file:(COMP1021 Mathematics for Computer Science)",
+      "color": {
+        "a": 1,
+        "rgb": 2883328
+      }
+    },
+    {
+      "query": "file:Linker",
+      "color": {
+        "a": 1,
+        "rgb": 0
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": -1.8,
+  "nodeSizeMultiplier": 0.907058823529412,
+  "lineSizeMultiplier": 1.80058823529412,
+  "collapse-forces": true,
+  "centerStrength": 0.5,
+  "repelStrength": 20,
+  "linkStrength": 1,
+  "linkDistance": 500,
+  "scale": 0.029878487735447844,
+  "close": false
+}

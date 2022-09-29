@@ -1,0 +1,16 @@
+{
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "attachmentFolderPath": "./Snippets",
+  "showUnsupportedFiles": true,
+  "pdfExportSettings": {
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 80
+  },
+  "legacyEditor": false,
+  "livePreview": true
+}

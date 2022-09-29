@@ -1,0 +1,9 @@
+{
+  "baseFontSize": 15,
+  "translucency": false,
+  "enabledCssSnippets": [
+    "DeepTheme"
+  ],
+  "cssTheme": "Deep Engine",
+  "theme": "obsidian"
+}
