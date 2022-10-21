@@ -2,7 +2,7 @@
 1) In `Build Settings` make sure `Universal Windows Platform` is selected, if not click on it and click `Switch Platform`.
 2) Click Build and when it finishes, Unity should create a new Visual Studio solution which you can open.
 *It will look something like this:*
-![[Pasted image 20220929074838.png]]
+![[Snippets/Pasted image 20220929074838.png]]
 3) Open the project and change the build to `Release`, `ARM64`, `Remote Machine`:
 ![[Pasted image 20220929075008.png]]
 4) Open `Package.appxmanifest`:
