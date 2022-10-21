@@ -122,6 +122,10 @@
   font-weight: 400;
 }
 
+body {
+  --file-line-width: 95%;
+}
+
 .theme-dark {
   --background-code: #222436;
   --background-code-preview: #222436;
@@ -562,13 +566,16 @@
 .markdown-preview-view ul {
   list-style: none;
 }
-.markdown-preview-view ul li:not(.task-list-item)::before {
+.markdown-preview-view ul li:not(.task-list-item)::before { /* legacy */
   content: "-"; /*"•";*/
   color: var(--orange-accent);
   font-weight: bold;
   display: inline-block;
   width: 1em;
   margin-left: -1em;
+}
+.markdown-source-view.mod-cm6 .list-bullet:after {
+  height: auto;
 }
 .markdown-preview-view .list-collapse-indicator {
   color: var(--orange-accent);
@@ -1638,6 +1645,10 @@ div.HyperMD-header:not(.cm-active).cm-line > span.cm-header.cm-header-6:last-of-
 }
 .HyperMD-header-6 {
     font-size: var(--font-h6-preview-size);
+}
+
+.nav-folder-children > .nav-file, .nav-folder-children > .nav-folder {
+    border-left: 0px;
 }
 
 /* Codeblock */

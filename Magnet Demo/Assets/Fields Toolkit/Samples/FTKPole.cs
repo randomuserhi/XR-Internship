@@ -116,6 +116,8 @@ namespace FieldsToolkit
         private Vector3[] buffer = new Vector3[50];
         public void FixedUpdate()
         {
+            if (strength < 0) render = false;
+
             for (int i = 0; i < lines.Count; ++i)
             {
                 lines[i].enabled = render;

@@ -19,7 +19,7 @@ namespace FieldsToolkit
             public float step;
             public float tolerance;
 
-            public static Settings defaultSettings = new Settings() { numLinesPerRing = 5, numRings = 5, iterationsPerFrame = 3, step = 0.03f, tolerance = 1e-7f };
+            public static Settings defaultSettings = new Settings() { numLinesPerRing = 5, numRings = 5, iterationsPerFrame = 3, step = 0.003f, tolerance = 1e-7f };
         }
         public static Settings settings { get => FieldsToolkit.instance == null ? Settings.defaultSettings : FieldsToolkit.instance.settings; }
         
@@ -105,7 +105,7 @@ namespace FieldsToolkit
                 else // Adjust step to maximize tolerance
                 {
                     buffer[count] = single;
-                    s *= 2f;
+                    s *= 1.1f;
                 }
 
                 // Check if line has reached a sink

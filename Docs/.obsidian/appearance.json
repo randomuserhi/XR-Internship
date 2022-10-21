@@ -4,6 +4,7 @@
   "enabledCssSnippets": [
     "DeepTheme"
   ],
-  "cssTheme": "Deep Engine",
-  "theme": "obsidian"
+  "cssTheme": "",
+  "theme": "moonstone",
+  "accentColor": ""
 }
