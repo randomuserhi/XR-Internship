@@ -48,7 +48,7 @@ namespace FieldsToolkit
 
             for (int i = 0; i < poles.Count; i++)
             {
-                dir -= CalculateForce(point, poles[i].transform.position, strength, poles[i].strength);
+                dir -= CalculateForce(point, poles[i].position, strength, poles[i].strength);
             }
 
             return dir.normalized;

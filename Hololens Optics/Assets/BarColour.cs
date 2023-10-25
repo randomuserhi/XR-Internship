@@ -5,7 +5,7 @@ using UnityEngine;
 public class BarColour : MonoBehaviour
 {
     Interactable interactable;
-    MeshRenderer meshRenderer;
+    public MeshRenderer meshRenderer;
 
     private void Start()
     {

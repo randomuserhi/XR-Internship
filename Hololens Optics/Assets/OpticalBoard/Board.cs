@@ -1,3 +1,4 @@
+using Microsoft.MixedReality.Toolkit.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,6 +59,11 @@ public class Board : MonoBehaviour
         {
             if (self.isGrabbing)
             {
+                left.GetComponent<BarColour>().meshRenderer.material.color = Color.Lerp(Color.blue, Color.white, grabTimer);
+                right.GetComponent<BarColour>().meshRenderer.material.color = Color.Lerp(Color.blue, Color.white, grabTimer);
+                top.GetComponent<BarColour>().meshRenderer.material.color = Color.Lerp(Color.blue, Color.white, grabTimer);
+                bottom.GetComponent<BarColour>().meshRenderer.material.color = Color.Lerp(Color.blue, Color.white, grabTimer);
+
                 if (grabTimer <= 0)
                 {
                     transform.position = self.position;

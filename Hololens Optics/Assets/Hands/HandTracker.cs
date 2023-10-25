@@ -7,6 +7,7 @@ using UnityEngine;
 using Microsoft;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Input;
+using InteractionTK.HandTracking;
 
 public class HandTracker : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class HandTracker : MonoBehaviour
 
         public Handedness handedness;
         private MixedRealityPose pose;
+
+        public ITKGestures gesture;
 
         /*private bool[] isKinematic = new bool[] { 
             false,
@@ -207,77 +210,7 @@ public class HandTracker : MonoBehaviour
         {
             if (!isTracked) return false;
 
-            bool isGripping = false;
-            
-            //Only index finger
-            Vector3 dir = (rawTrackers[2].transform.position - rawTrackers[6].transform.position);
-            float dist = dir.sqrMagnitude;
-            if (dist < 0.03f * 0.03f)
-            {
-                isGripping = true;
-            }
-
-            bool enclosed = true;
-            bool distal = false;
-            bool middle = false;
-            bool distal2 = false;
-            bool middle2 = false;
-            bool proximal = false;
-            for (int i = 6; i < rawTrackers.Length; i += 5)
-            {
-                //All fingers
-                /*Vector3 dir = (rawTrackers[2].transform.position - rawTrackers[i].transform.position);
-                float dist = dir.sqrMagnitude;
-                if (dist < 0.04f * 0.04f)
-                {
-                    isGripping = true;
-                }*/
-
-                dir = (rawTrackers[0].transform.position - rawTrackers[i].transform.position);
-                dist = dir.sqrMagnitude;
-                if (dist > 0.1f * 0.1f)
-                {
-                    enclosed = false;
-                }
-
-                dir = (rawTrackers[4].transform.position - rawTrackers[i].transform.position);
-                dist = dir.sqrMagnitude;
-                if (dist < 0.04f * 0.04f)
-                {
-                    proximal = true;
-                }
-
-                dir = (rawTrackers[2].transform.position - rawTrackers[i + 1].transform.position);
-                dist = dir.sqrMagnitude;
-                if (dist < 0.1f * 0.1f)
-                {
-                    distal = false;
-                }
-
-                dir = (rawTrackers[2].transform.position - rawTrackers[i + 2].transform.position);
-                dist = dir.sqrMagnitude;
-                if (dist < 0.1f * 0.1f)
-                {
-                    middle = false;
-                }
-
-                dir = (rawTrackers[3].transform.position - rawTrackers[i + 1].transform.position);
-                dist = dir.sqrMagnitude;
-                if (dist < 0.1f * 0.1f)
-                {
-                    distal2 = false;
-                }
-
-                dir = (rawTrackers[3].transform.position - rawTrackers[i + 2].transform.position);
-                dist = dir.sqrMagnitude;
-                if (dist < 0.1f * 0.1f)
-                {
-                    middle2 = false;
-                }
-            }
-            isGripping |= enclosed && (distal || proximal || middle || distal2 || middle2);
-
-            return isGripping;
+            return gesture.intention > 0.5f && (gesture.grasp > 0.6f || gesture.pinch > 0.8f);
         }
 
         public void Update()
@@ -287,6 +220,9 @@ public class HandTracker : MonoBehaviour
         }
     }
 
+    public ITKGestures lgesture;
+    public ITKGestures rgesture;
+
     public static Hand LHand;
     public static Hand RHand;
 
@@ -294,6 +230,9 @@ public class HandTracker : MonoBehaviour
     {
         LHand = new Hand(Handedness.Left);
         RHand = new Hand(Handedness.Right);
+
+        LHand.gesture = lgesture;
+        RHand.gesture = rgesture;
 
         LHand.Init(RawTracker, transform);
         RHand.Init(RawTracker, transform);
@@ -303,11 +242,11 @@ public class HandTracker : MonoBehaviour
 
     private void Interact(Hand h)
     {
-        for (int i = 0; i < h.rawTrackers.Length; i++)
+        /*for (int i = 0; i < h.rawTrackers.Length; i++)
         {
             h.rawTrackers[i].GetComponent<MeshRenderer>().material.color = h.isGrabbing ? Color.red : Color.white;
             h.rawTrackers[i].GetComponent<MeshRenderer>().enabled = h.isTracked;
-        }
+        }*/
 
         if (!h.isTracked)
         {

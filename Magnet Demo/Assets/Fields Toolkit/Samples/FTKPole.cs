@@ -13,7 +13,8 @@ namespace FieldsToolkit
         private static Queue<LineRenderer> renderers = new Queue<LineRenderer>();
 
         public float strength = 1;
-        public bool render = false;
+        public bool renderNeg = false;
+        public bool renderPos = false;
 
         public bool simulate = false;
 
@@ -21,6 +22,7 @@ namespace FieldsToolkit
         private bool set = false;
 
         private Vector3 prev;
+        public Vector3 position { get => prev; }
 
         private class Line
         {
@@ -33,6 +35,7 @@ namespace FieldsToolkit
         }
 
         private List<LineRenderer> lines = new List<LineRenderer>();
+        private List<LineRenderer> linebuffer = new List<LineRenderer>();
         private List<Line> lineData = new List<Line>();
 
         private LineRenderer GetLineRenderer()
@@ -44,6 +47,7 @@ namespace FieldsToolkit
                 GameObject l = new GameObject();
                 l.name = "Field line";
                 r = l.AddComponent<LineRenderer>();
+                r.material = FieldsToolkit.instance.fieldLineMaterial;
             }
 
             r.transform.parent = transform;
@@ -60,6 +64,7 @@ namespace FieldsToolkit
             for (int i = 0; i < lines.Count; ++i)
             {
                 lines[i].enabled = true;
+                linebuffer[i].enabled = false;
             }
         }
 
@@ -68,6 +73,7 @@ namespace FieldsToolkit
             for (int i = 0; i < lines.Count; ++i)
             {
                 lines[i].enabled = false;
+                linebuffer[i].enabled = false;
             }
         }
 
@@ -77,7 +83,7 @@ namespace FieldsToolkit
 
             prev = transform.position;
 
-            ResetLines();
+            _ResetLines();
         }
 
         public void OnDestroy()
@@ -85,78 +91,136 @@ namespace FieldsToolkit
             poles.Remove(this);
         }
 
-        private void ResetLines()
+        private static void ResetLine(FTKPole p)
         {
-            prev = transform.position;
+            p.prev = p.transform.position;
 
-            while (lines.Count < FTK.settings.numLinesPerRing * FTK.settings.numRings)
+            while (p.lines.Count < FTK.settings.numLinesPerRing * FTK.settings.numRings)
             {
-                lines.Add(GetLineRenderer());
-                lineData.Add(new Line());
+                p.lines.Add(p.GetLineRenderer());
+                p.linebuffer.Add(p.GetLineRenderer());
+                p.lineData.Add(new Line());
             }
-            while (lines.Count > FTK.settings.numLinesPerRing * FTK.settings.numRings)
+            while (p.lines.Count > FTK.settings.numLinesPerRing * FTK.settings.numRings)
             {
-                lines[0].gameObject.SetActive(false);
-                renderers.Enqueue(lines[0]);
-                lines.RemoveAt(0);
-                lineData.RemoveAt(0);
+                p.lines[0].gameObject.SetActive(false);
+                p.linebuffer[0].gameObject.SetActive(false);
+                renderers.Enqueue(p.lines[0]);
+                renderers.Enqueue(p.linebuffer[0]);
+                p.lines.RemoveAt(0);
+                p.linebuffer.RemoveAt(0);
+                p.lineData.RemoveAt(0);
             }
+
+            p.marked = false;
 
             int idx = 0;
             for (int i = 0; i < FTK.settings.numRings; ++i)
             {
                 for (int j = 0; j < FTK.settings.numLinesPerRing; ++j, ++idx)
                 {
-                    lineData[idx] = new Line();
-                    lineData[idx].last = transform.position + transform.rotation * Quaternion.Euler(j * 360f / FTK.settings.numLinesPerRing, i * 360f / FTK.settings.numRings, 0) * Vector3.forward * 0.025f;
+                    p.lineData[idx] = new Line();
+                    p.lineData[idx].last = p.transform.position + p.transform.rotation * Quaternion.Euler(j * 360f / FTK.settings.numLinesPerRing, i * 360f / FTK.settings.numRings, 0) * Vector3.forward * 0.025f;
                 }
             }
         }
 
+        public static void _ResetLines()
+        {
+            totalCompleted = 0;
+            for (int i = 0; i < poles.Count; ++i)
+            {
+                ResetLine(poles[i]);
+            }
+        }
+        private void ResetLines()
+        {
+            if (!triggered)
+            {
+                triggered = true;
+                totalCompleted = 0;
+                _ResetLines();
+            }
+        }
+
+        private static bool triggered = false;
+        private static int totalCompleted = 0;
+        private bool marked = false;
+
         private Vector3[] buffer = new Vector3[50];
         public void FixedUpdate()
         {
-            if (strength < 0) render = false;
+            triggered = false;
+
+            float tolerance = 0.001f;
+            if (body.velocity.x < tolerance && body.velocity.x > -tolerance) body.velocity = new Vector3(0, body.velocity.y, body.velocity.z);
+            if (body.velocity.y < tolerance && body.velocity.y > -tolerance) body.velocity = new Vector3(body.velocity.x, 0, body.velocity.z);
+            if (body.velocity.z < tolerance && body.velocity.z > -tolerance) body.velocity = new Vector3(body.velocity.x, body.velocity.y, 0);
+
+            bool render = strength < 0 && renderNeg || strength >= 1 && renderPos;
 
             for (int i = 0; i < lines.Count; ++i)
             {
                 lines[i].enabled = render;
+                linebuffer[i].enabled = false;
+
+                if (strength < 0)
+                    lines[i].material.color = Color.red;
+                else
+                    lines[i].material.color = Color.blue;
             }
 
-            if (render)
+            /*if (renderNeg || renderPos)
             {
                 if (body != null)
                 {
                     set = true;
                     body.isKinematic = true;
                 }
+            }*/
 
-                if (poles.Any(l => l.prev != l.transform.position) && !lineData.Any(l => !l.completed && !l.bufferEnd)) ResetLines();
+            if (render)
+            {
+                if (totalCompleted == poles.Where(l => l.strength < 0 && l.renderNeg || l.strength >= 1 && l.renderPos).Count() && poles.Any(l => l.prev != l.transform.position)) 
+                    ResetLines();
 
-                int idx = 0;
-                int count;
-                for (int i = 0; i < FTK.settings.numRings; ++i)
+                if (!lineData.Any(l => !l.completed && !l.bufferEnd) && !marked)
                 {
-                    for (int j = 0; j < FTK.settings.numLinesPerRing; ++j, ++idx)
-                    {
-                        if (lineData[idx].completed || lineData[idx].bufferEnd)
-                        {
-                            lines[idx].positionCount = lineData[idx].count;
-                            continue;
-                        }
+                    marked = true;
+                    ++totalCompleted;
 
-                        buffer[lineData[idx].current - 1] = lineData[idx].last;
-                        lineData[idx].completed = FTK.Solve(buffer, Mathf.Sign(strength), lineData[idx].step, FTK.settings.tolerance, poles, out lineData[idx].step, out count, lineData[idx].current, FTK.settings.iterationsPerFrame);
-                        lineData[idx].count = count;
-                        lineData[idx].bufferEnd = lineData[idx].count == buffer.Length;
-                        if (lines[idx].positionCount < count) lines[idx].positionCount = count;
-                        for (--lineData[idx].current; lineData[idx].current < count; ++lineData[idx].current)
-                            lines[idx].SetPosition(lineData[idx].current, buffer[lineData[idx].current]);
-                        lineData[idx].last = buffer[lineData[idx].current - 1];
+                    List<LineRenderer> temp = lines;
+                    lines = linebuffer;
+                    linebuffer = temp;
+                }
+
+                if (lineData.Any(l => !l.completed && !l.bufferEnd))
+                {
+                    int idx = 0;
+                    int count;
+                    for (int i = 0; i < FTK.settings.numRings; ++i)
+                    {
+                        for (int j = 0; j < FTK.settings.numLinesPerRing; ++j, ++idx)
+                        {
+                            if (lineData[idx].completed || lineData[idx].bufferEnd)
+                            {
+                                linebuffer[idx].positionCount = lineData[idx].count;
+                                continue;
+                            }
+
+                            buffer[lineData[idx].current - 1] = lineData[idx].last;
+                            lineData[idx].completed = FTK.Solve(buffer, Mathf.Sign(strength), lineData[idx].step, FTK.settings.tolerance, poles, out lineData[idx].step, out count, lineData[idx].current, FTK.settings.iterationsPerFrame);
+                            lineData[idx].count = count;
+                            lineData[idx].bufferEnd = lineData[idx].count == buffer.Length;
+                            if (linebuffer[idx].positionCount < count) linebuffer[idx].positionCount = count;
+                            for (--lineData[idx].current; lineData[idx].current < count; ++lineData[idx].current)
+                                linebuffer[idx].SetPosition(lineData[idx].current, buffer[lineData[idx].current]);
+                            lineData[idx].last = buffer[lineData[idx].current - 1];
+                        }
                     }
                 }
             }
-            else
+            /*else
             {
                 if (body != null)
                 {
@@ -168,7 +232,9 @@ namespace FieldsToolkit
 
                     if (simulate) body.AddForceAtPosition(FTK.ForceOnPole(this, poles), transform.position);
                 }
-            }
+            }*/
+
+            if (simulate) body.AddForceAtPosition(FTK.ForceOnPole(this, poles), transform.position);
         }
     }
 }

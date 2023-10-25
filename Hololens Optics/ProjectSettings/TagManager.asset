@@ -35,8 +35,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - ITKHand
+  - ITKHandIgnore
   - Spatial Awareness
   m_SortingLayers:
   - name: Default

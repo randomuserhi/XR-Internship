@@ -23,7 +23,8 @@ namespace InteractionTK.Menus
         public MTKButton spawnPositive;
         public MTKButton spawnNegative;
         public MTKButton delete;
-        public MTKButton toggle;
+        public MTKButton togglePos;
+        public MTKButton toggleNeg;
         public MTKButton toggleITK;
         public MTKButton toggleSimulate;
 
@@ -31,7 +32,8 @@ namespace InteractionTK.Menus
         private List<FTKPole> poles = new List<FTKPole>();
         private List<ITKInteractable> grab = new List<ITKInteractable>();
 
-        private bool render = false;
+        private bool renderPos = false;
+        private bool renderNeg = false;
         private bool itk = true;
         private bool simulate = false;
         private float spawnDist = 0.4f;
@@ -62,11 +64,19 @@ namespace InteractionTK.Menus
                 objects.Add(o);
             });
 
-            toggle.OnClick.AddListener(() =>
+            togglePos.OnClick.AddListener(() =>
             {
-                render = !render;
-                if (render) toggle.tmp.text = "Disable Field Lines";
-                else toggle.tmp.text = "Render Field Lines";
+                FTKPole._ResetLines();
+                renderPos = !renderPos;
+                if (renderPos) togglePos.tmp.text = "Disable Positive Field Lines";
+                else togglePos.tmp.text = "Render Positive Field Lines";
+            });
+            toggleNeg.OnClick.AddListener(() =>
+            {
+                FTKPole._ResetLines();
+                renderNeg = !renderNeg;
+                if (renderNeg) toggleNeg.tmp.text = "Disable Negative Field Lines";
+                else toggleNeg.tmp.text = "Render Negative Field Lines";
             });
 
             toggleITK.OnClick.AddListener(() =>
@@ -97,7 +107,7 @@ namespace InteractionTK.Menus
         private bool update = true;
         private void FixedUpdate()
         {
-            for (int i = 0; i < poles.Count; ++i) { poles[i].render = render; poles[i].simulate = simulate; }
+            for (int i = 0; i < poles.Count; ++i) { poles[i].renderPos = renderPos; poles[i].renderNeg = renderNeg; poles[i].simulate = simulate; }
             for (int i = 0; i < grab.Count; ++i) { grab[i].pinch = itk; grab[i].grasp = itk; }
 
             if (!update) return;

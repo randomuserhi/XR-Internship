@@ -13,6 +13,7 @@ namespace FieldsToolkit
         internal static FieldsToolkit instance;
 
         public FTK.Settings settings = FTK.Settings.defaultSettings;
+        public Material fieldLineMaterial;
 
         public void Start()
         {

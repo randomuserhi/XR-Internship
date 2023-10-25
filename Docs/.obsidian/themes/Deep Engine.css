@@ -219,9 +219,13 @@ body {
 .cm-s-obsidian span.cm-hmd-internal-link {
   color: var(--green-accent) !important;
 }
-.cm-s-obsidian .cm-em,
+/*.cm-s-obsidian .cm-em,
 .cm-s-obsidian .cm-strong {
   color: var(--blue-accent);
+}*/
+.cm-s-obsidian .cm-em {
+  font-style: italic !important;
+  color: var(--blue-accent) !important;
 }
 .cm-s-obsidian span.cm-inline-code {
   color: var(--accent-color);
