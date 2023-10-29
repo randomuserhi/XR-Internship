@@ -56,6 +56,14 @@
                 "sortOrder": "alphabetical"
               }
             }
+          },
+          {
+            "id": "4d48c3dbb1363994",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -95,20 +103,53 @@
     "width": 300,
     "collapsed": true
   },
-  "ribbon": {
-    "mostRecentAction": ""
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false
+    }
   },
   "active": "4d1524e3a1ce5be8",
   "lastOpenFiles": [
     "Getting Started.md",
     "Building and Deploying.md",
-    "Toolkits/Docs/VRTK/Virtual Reality Toolkit.md",
-    "Toolkits/Docs/NTK/Network Toolkit.md",
-    "Toolkits/Docs/MTK/Menu Toolkit.md",
-    "Toolkits/Docs/LTK/Light Toolkit.md",
-    "Toolkits/Docs/ITK/Interaction Toolkit.md",
-    "Toolkits/Docs/FTK/Fields Toolkit.md",
     "Toolkits/Getting started with toolkits.md",
-    "Toolkits/Docs/ITK/ITKHand.md"
+    "node_modules/@types/three/src/materials/SpriteMaterial.d.ts",
+    "node_modules/@types/three/src/materials/ShadowMaterial.d.ts",
+    "node_modules/@types/three/src/materials/RawShaderMaterial.d.ts",
+    "node_modules/@types/three/src/materials/ShaderMaterial.d.ts",
+    "node_modules/@types/three/src/materials/PointsMaterial.d.ts",
+    "node_modules/@types/three/src/materials/MeshToonMaterial.d.ts",
+    "node_modules/@types/three/src/materials/MeshStandardMaterial.d.ts",
+    "node_modules/@types/three/src/materials/MeshPhysicalMaterial.d.ts",
+    "node_modules/@types/three/src/materials/MeshPhongMaterial.d.ts",
+    "node_modules/@types/three/src/materials/MeshNormalMaterial.d.ts",
+    "node_modules/yargs-parser/README.md",
+    "node_modules/yargs-parser/CHANGELOG.md",
+    "node_modules/yargs/README.md",
+    "node_modules/yargs/CHANGELOG.md",
+    "node_modules/y18n/README.md",
+    "node_modules/y18n/CHANGELOG.md",
+    "node_modules/xtend/README.md",
+    "node_modules/wrappy/README.md",
+    "node_modules/wrap-ansi-cjs/readme.md",
+    "node_modules/wrap-ansi/readme.md",
+    "node_modules/which/README.md",
+    "node_modules/which/CHANGELOG.md",
+    "node_modules/util-deprecate/README.md",
+    "node_modules/util-deprecate/History.md",
+    "node_modules/untildify/readme.md",
+    "node_modules/typescript/SECURITY.md",
+    "node_modules/typescript/README.md",
+    "node_modules/through2/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md",
+    "node_modules/through2/node_modules/string_decoder/README.md",
+    "node_modules/through2/node_modules/readable-stream/README.md",
+    "node_modules/through2/node_modules/readable-stream/GOVERNANCE.md",
+    "node_modules/through2/node_modules/readable-stream/CONTRIBUTING.md",
+    "node_modules/through2/node_modules/isarray/README.md"
   ]
 }
