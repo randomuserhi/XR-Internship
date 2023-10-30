@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace LightTK
 {
@@ -20,41 +21,45 @@ namespace LightTK
             set { surface.maximum.z = value; }
         }
 
-        public float offset
-        {
-            get { return surface.surface.i; }
-            set { surface.surface.i = value; }
-        }
-
         public float seperation
         {
-            get { return -surface.surface.p; }
-            set { surface.surface.p = -value; }
+            get { return Mathf.Sqrt(-surface.equation.p); }
+            set { surface.equation.p = -(value * value); }
         }
 
-        /*public Vector3 squash
+        public Vector2 scale
         {
-            get { return new Vector3(curve.j, curve.k, curve.l); }
-            set { curve.j = value.x; curve.k = value.y; curve.l = value.z; }
-        }*/
-        public float squash
-        {
-            get { return surface.surface.l; }
-            set { surface.surface.l = value; }
+            get { return new Vector2(1f / surface.equation.j, 1f / surface.equation.k); }
+            set { surface.equation.j = 1f / value.x; surface.equation.k = 1f / value.y; }
         }
 
-        public Hyperboloid(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity, float offset = 0)
+        public Hyperboloid(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity)
         {
             surface = new Surface()
             {
-                surface = Equation.Hyperboloid,
+                equation = Equation.Hyperboloid,
                 minimum = Vector3.negativeInfinity,
                 maximum = Vector3.positiveInfinity,
                 settings = RefractionEquation.crownGlass
             };
             this.minimum = minimum;
             this.maximum = maximum;
-            this.offset = offset;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.LabelField("Paraboloid Settings", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Bounds", EditorStyles.boldLabel);
+            minimum = EditorGUILayout.FloatField("Minimum", minimum);
+            maximum = EditorGUILayout.FloatField("Maximum", maximum);
+            surface.radial = EditorGUILayout.FloatField("Radius", surface.radial);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
+            scale = EditorGUILayout.Vector2Field("Scale", scale);
+            seperation = EditorGUILayout.FloatField("Seperation", seperation);
         }
     }
 }

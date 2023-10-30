@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace LightTK
 {
@@ -20,17 +21,37 @@ namespace LightTK
             set { surface.maximum.z = value; }
         }
 
+        public float radius
+        {
+            get { return Mathf.Sqrt(-surface.equation.p); }
+            set { surface.equation.p = -(value * value); }
+        }
+
         public Cylinder(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity)
         {
             surface = new Surface()
             {
-                surface = Equation.Cylinder,
+                equation = Equation.Cylinder,
                 minimum = Vector3.negativeInfinity,
                 maximum = Vector3.positiveInfinity,
                 settings = RefractionEquation.crownGlass
             };
             this.minimum = minimum;
             this.maximum = maximum;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.LabelField("Cylinder Settings", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Bounds", EditorStyles.boldLabel);
+            minimum = EditorGUILayout.FloatField("Minimum", minimum);
+            maximum = EditorGUILayout.FloatField("Maximum", maximum);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
+            radius = EditorGUILayout.FloatField("Radius", radius);
         }
     }
 }

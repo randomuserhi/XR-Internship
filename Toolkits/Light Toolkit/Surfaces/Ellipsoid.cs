@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace LightTK
 {
@@ -20,34 +21,27 @@ namespace LightTK
             set { surface.maximum.z = value; }
         }
 
-        public float offset
-        {
-            get { return surface.surface.i; }
-            set { surface.surface.i = value; }
-        }
-
         public float radius
         {
-            get { return -surface.surface.p; }
-            set { surface.surface.p = -value; }
+            get { return Mathf.Sqrt(-surface.equation.p); }
+            set { surface.equation.p = -(value * value); }
         }
 
-        /*public Vector3 squash
+        public Vector3 scale
         {
-            get { return new Vector3(curve.j, curve.k, curve.l); }
-            set { curve.j = value.x; curve.k = value.y; curve.l = value.z; }
-        }*/
-        public float squash
-        {
-            get { return surface.surface.l; }
-            set { surface.surface.l = value; }
+            get { return new Vector3(Mathf.Sqrt(1f/surface.equation.j), Mathf.Sqrt(surface.equation.k), Mathf.Sqrt(surface.equation.l)); }
+            set {
+                surface.equation.j = 1f / (value.x * value.x);
+                surface.equation.k = 1f / (value.y * value.y);
+                surface.equation.l = 1f / (value.z * value.z); 
+            }
         }
 
-        public Ellipsoid(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity, float offset = 0)
+        public Ellipsoid(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity)
         {
             surface = new Surface()
             {
-                surface = Equation.Ellipsoid,
+                equation = Equation.Ellipsoid,
                 minimum = Vector3.negativeInfinity,
                 maximum = Vector3.positiveInfinity,
                 settings = RefractionEquation.crownGlass
@@ -55,7 +49,21 @@ namespace LightTK
 
             this.minimum = minimum;
             this.maximum = maximum;
-            this.offset = offset;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.LabelField("Ellipsoid Settings", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Bounds", EditorStyles.boldLabel);
+            minimum = EditorGUILayout.FloatField("Minimum", minimum);
+            maximum = EditorGUILayout.FloatField("Maximum", maximum);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
+            scale = EditorGUILayout.Vector3Field("Scale", scale);
+            radius = EditorGUILayout.FloatField("Radius", radius);
         }
     }
 }

@@ -33,6 +33,20 @@ namespace LightTK
             }
         }
 
+        public Vector3 offset
+        {
+            get
+            {
+                return  new Vector3(surface.equation.g, surface.equation.h, surface.equation.i);
+            }
+            set
+            {
+                surface.equation.g = value.x;
+                surface.equation.h = value.y;
+                surface.equation.i = value.z;
+            }
+        }
+
         public RefractionSettings refractionSettings
         {
             get
@@ -55,5 +69,7 @@ namespace LightTK
         {
             return surface.surface;
         }
+
+        public virtual void OnInspectorGUI() { }
     }
 }

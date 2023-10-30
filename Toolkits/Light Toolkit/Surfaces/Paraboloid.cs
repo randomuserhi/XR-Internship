@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace LightTK
 {
@@ -20,35 +21,38 @@ namespace LightTK
             set { surface.maximum.z = value; }
         }
 
-        public float offset
+        public Vector2 scale
         {
-            get { return surface.surface.i; }
-            set { surface.surface.i = value; }
+            get { return new Vector2(1f/surface.equation.j, 1f/surface.equation.k); }
+            set { surface.equation.j = 1f/value.x; surface.equation.k = 1f/value.y; }
         }
 
-        /*public Vector2 scale
-        {
-            get { return new Vector2(curve.j, curve.k); }
-            set { curve.j = value.x; curve.k = value.y; }
-        }*/
-        public float scale
-        {
-            get { return surface.surface.j; }
-            set { surface.surface.j = value; surface.surface.k = value; }
-        }
-
-        public Paraboloid(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity, float offset = 0)
+        public Paraboloid(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity)
         {
             base.surface = new Surface()
             {
-                surface = Equation.Paraboloid,
+                equation = Equation.Paraboloid,
                 minimum = Vector3.negativeInfinity,
                 maximum = Vector3.positiveInfinity,
                 settings = RefractionEquation.crownGlass
             };
             this.minimum = minimum;
             this.maximum = maximum;
-            this.offset = offset;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.LabelField("Paraboloid Settings", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Bounds", EditorStyles.boldLabel);
+            minimum = EditorGUILayout.FloatField("Minimum", minimum);
+            maximum = EditorGUILayout.FloatField("Maximum", maximum);
+            surface.radial = EditorGUILayout.FloatField("Radius", surface.radial);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
+            scale = EditorGUILayout.Vector2Field("Scale", scale);
         }
     }
 }

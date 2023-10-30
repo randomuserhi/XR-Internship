@@ -136,12 +136,12 @@ namespace LightTK
 
             dir.Normalize();
 
-            if (curve.surface.j == 0 &&
-                curve.surface.k == 0 &&
-                curve.surface.l == 0 &&
-                curve.surface.m == 0 &&
-                curve.surface.n == 0 &&
-                curve.surface.o == 0)
+            if (curve.equation.j == 0 &&
+                curve.equation.k == 0 &&
+                curve.equation.l == 0 &&
+                curve.equation.m == 0 &&
+                curve.equation.n == 0 &&
+                curve.equation.o == 0)
                 return 0;
 
             partialEquation[] l = new partialEquation[3]
@@ -150,25 +150,25 @@ namespace LightTK
                 {
                     a = origin.x, // a
                     b = dir.x, // d
-                    d = curve.surface.j,
-                    e = curve.surface.g,
-                    f = curve.surface.m
+                    d = curve.equation.j,
+                    e = curve.equation.g,
+                    f = curve.equation.m
                 },
                 new partialEquation()
                 {
                     a = origin.y, // b
                     b = dir.y, // e
-                    d = curve.surface.k,
-                    e = curve.surface.h,
-                    f = curve.surface.n
+                    d = curve.equation.k,
+                    e = curve.equation.h,
+                    f = curve.equation.n
                 },
                 new partialEquation()
                 {
                     a = origin.z, // c
                     b = dir.z, // f
-                    d = curve.surface.l,
-                    e = curve.surface.i,
-                    f = curve.surface.o
+                    d = curve.equation.l,
+                    e = curve.equation.i,
+                    f = curve.equation.o
                 }
             };
 
@@ -199,7 +199,7 @@ namespace LightTK
 
             float cq = r0.d * r0.e * r0.e + r1.d * (bead * bead - 2f * r1.e * bead + r1.e * r1.e) +
                 r2.d * (cfad * cfad - 2f * r2.e * cfad + r2.e * r2.e) +
-                r1.f * bead + r2.f * cfad + curve.surface.p;
+                r1.f * bead + r2.f * cfad + curve.equation.p;
 
             float[] solutions = new float[2];
             int count;
@@ -244,9 +244,9 @@ namespace LightTK
                 }
 
                 hit.normal = new Vector3(
-                    2f * curve.surface.j * hit.point.x - 2f * curve.surface.j * curve.surface.g + curve.surface.m,
-                    2f * curve.surface.k * hit.point.y - 2f * curve.surface.k * curve.surface.h + curve.surface.n,
-                    2f * curve.surface.l * hit.point.z - 2f * curve.surface.l * curve.surface.i + curve.surface.o
+                    2f * curve.equation.j * hit.point.x - 2f * curve.equation.j * curve.equation.g + curve.equation.m,
+                    2f * curve.equation.k * hit.point.y - 2f * curve.equation.k * curve.equation.h + curve.equation.n,
+                    2f * curve.equation.l * hit.point.z - 2f * curve.equation.l * curve.equation.i + curve.equation.o
                     );
 
                 if (bounded &&
@@ -498,6 +498,6 @@ namespace LightTK
         public Vector3 maximum;
         public float radial;
 
-        public Equation surface;
+        public Equation equation;
     }
 }
