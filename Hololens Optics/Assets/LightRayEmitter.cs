@@ -39,13 +39,18 @@ public class LightRayEmitter : MonoBehaviour
                 int i = 1;
                 renderers[j].positionCount = i;
                 renderers[j].SetPosition(0, ray.position);
-                for (int z = 0; z < 100 && SimulateRay(ray, colliders); z++, i++)
+                for (int z = 0; z < 100 && SimulateRay(ray, colliders, out LightRayHit hit); z++, i++)
                 {
                     renderers[j].positionCount = i + 1;
                     renderers[j].SetPosition(i, ray.position);
+                    if (hit.surface.settings.type == SurfaceSettings.SurfaceType.Block)
+                    {
+                        goto block;
+                    }
                 }
                 renderers[j].positionCount = i + 1;
                 renderers[j].SetPosition(i, ray.position + ray.direction * 100f);
+            block:;
             }
     }
 

@@ -59,7 +59,7 @@ namespace LightTK
                     success = SolveRayIdealLens(l, p);
                     break;
                 case SurfaceSettings.SurfaceType.Block:
-                    success = false;
+                    success = true;
                     break;
             }
 
@@ -184,8 +184,9 @@ namespace LightTK
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SimulateRay(LightRay l, Surface[] curves)
+        public static bool SimulateRay(LightRay l, Surface[] curves, out LightRayHit hit)
         {
+            hit = new LightRayHit();
             if (l.direction == Vector3.zero) return false;
             LightRayHit[] hits = new LightRayHit[2];
             LightRayHit p = new LightRayHit();
@@ -197,25 +198,27 @@ namespace LightTK
                 int count = GetIntersection(l, c, hits);
                 for (int j = 0; j < count; j++)
                 {
-                    ref LightRayHit hit = ref hits[j];
-                    Vector3 dir = hit.point - l.position;
+                    ref LightRayHit _hit = ref hits[j];
+                    Vector3 dir = _hit.point - l.position;
                     if (Vector3.Dot(dir, l.direction) <= 0) continue;
-                    if (hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
+                    if (_hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
                     {
                         success = true;
-                        p = hit;
+                        p = _hit;
                         pdir = p.point - l.position;
                     }
                 }
             }
             if (!success) return false;
 
+            hit = p;
             return SolveRay(l, p);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SimulateRay(LightRay l, List<Surface> curves)
+        public static bool SimulateRay(LightRay l, List<Surface> curves, out LightRayHit hit)
         {
+            hit = new LightRayHit();
             if (l.direction == Vector3.zero) return false;
             LightRayHit[] hits = new LightRayHit[2];
             LightRayHit p = new LightRayHit();
@@ -226,25 +229,27 @@ namespace LightTK
                 int count = GetIntersection(l, curves[i], hits);
                 for (int j = 0; j < count; j++)
                 {
-                    ref LightRayHit hit = ref hits[j];
-                    Vector3 dir = hit.point - l.position;
+                    ref LightRayHit _hit = ref hits[j];
+                    Vector3 dir = _hit.point - l.position;
                     if (Vector3.Dot(dir, l.direction) <= 0) continue;
-                    if (hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
+                    if (_hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
                     {
                         success = true;
-                        p = hit;
+                        p = _hit;
                         pdir = p.point - l.position;
                     }
                 }
             }
             if (!success) return false;
 
+            hit = p;
             return SolveRay(l, p);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SimulateRay(LightRay l, List<LTKCollider> curves)
+        public static bool SimulateRay(LightRay l, List<LTKCollider> curves, out LightRayHit hit)
         {
+            hit = new LightRayHit();
             if (l.direction == Vector3.zero) return false;
             LightRayHit[] hits = new LightRayHit[2];
             LightRayHit p = new LightRayHit();
@@ -257,13 +262,13 @@ namespace LightTK
                     int count = GetIntersection(l, curves[i]._surface, hits);
                     for (int j = 0; j < count; j++)
                     {
-                        ref LightRayHit hit = ref hits[j];
-                        Vector3 dir = hit.point - l.position;
+                        ref LightRayHit _hit = ref hits[j];
+                        Vector3 dir = _hit.point - l.position;
                         if (Vector3.Dot(dir, l.direction) <= 0) continue;
-                        if (hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
+                        if (_hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
                         {
                             success = true;
-                            p = hit;
+                            p = _hit;
                             pdir = p.point - l.position;
                         }
                     }
@@ -271,12 +276,14 @@ namespace LightTK
             }
             if (!success) return false;
 
+            hit = p;
             return SolveRay(l, p);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SimulateRay(LightRay l, LTKCollider[] curves)
+        public static bool SimulateRay(LightRay l, LTKCollider[] curves, out LightRayHit hit)
         {
+            hit = new LightRayHit();
             if (l.direction == Vector3.zero) return false;
             LightRayHit[] hits = new LightRayHit[2];
             LightRayHit p = new LightRayHit();
@@ -289,13 +296,13 @@ namespace LightTK
                     int count = GetIntersection(l, curves[i]._surface, hits);
                     for (int j = 0; j < count; j++)
                     {
-                        ref LightRayHit hit = ref hits[j];
-                        Vector3 dir = hit.point - l.position;
+                        ref LightRayHit _hit = ref hits[j];
+                        Vector3 dir = _hit.point - l.position;
                         if (Vector3.Dot(dir, l.direction) <= 0) continue;
-                        if (hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
+                        if (_hit.point != l.position && (!success || dir.sqrMagnitude < pdir.sqrMagnitude))
                         {
                             success = true;
-                            p = hit;
+                            p = _hit;
                             pdir = p.point - l.position;
                         }
                     }
@@ -303,7 +310,32 @@ namespace LightTK
             }
             if (!success) return false;
 
+            hit = p;
             return SolveRay(l, p);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SimulateRay(LightRay l, Surface[] curves)
+        {
+            return SimulateRay(l, curves, out _);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SimulateRay(LightRay l, List<Surface> curves)
+        {
+            return SimulateRay(l, curves, out _);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SimulateRay(LightRay l, List<LTKCollider> curves)
+        {
+            return SimulateRay(l, curves, out _);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SimulateRay(LightRay l, LTKCollider[] curves)
+        {
+            return SimulateRay(l, curves, out _);
         }
 
         public static void SimulateRays(LightRay[] rays, Surface[] curves)
