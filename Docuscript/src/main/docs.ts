@@ -18,12 +18,13 @@ interface PageLink {
 
 interface Directory {
     get(path: string): Page | undefined;
-    set(path: string, page?: string): void;
+    set(path: string, page?: string, index?: number): void;
     setCache(path: string, page: RHUDocuscript.Page): void;
     fullPath(): string;
     sortedKeys(): string[];
     walk(job: (directory: Directory) => void): void; //NOTE(randomuserhi): Walks all children including nested, excluding current directory (the one you called walk on) -> maybe rename to walkChildren?
 
+    index?: number;
     version: string;
     parent?: Directory;
     subDirectories: Map<string, Page>;
@@ -72,7 +73,7 @@ RHU.module(new Error(), "docs", {
         }
         return current;
     };
-    Directory.prototype.set = function(path, page) {
+    Directory.prototype.set = function(path, page, index) {
         const paths = split(path);
         let current: Page = this;
         for (const p of paths) {
@@ -88,6 +89,7 @@ RHU.module(new Error(), "docs", {
         } else {
             current.page = undefined;
         }
+        current.index = index;
     };
     Directory.prototype.setCache = function(path, cache) {
         const paths = split(path);
@@ -113,7 +115,14 @@ RHU.module(new Error(), "docs", {
         return path.reverse().join("/");
     };
     Directory.prototype.sortedKeys = function() {
-        return [...this.subDirectories.keys()].sort();
+        return [...this.subDirectories.keys()].sort((a, b) => {
+            let dirA = this.subDirectories.get(a)!;
+            let dirB = this.subDirectories.get(b)!;
+            if (dirA.index !== undefined && dirB.index !== undefined && dirA.index !== dirB.index) {
+                return dirA.index - dirB.index;
+            }
+            return a.localeCompare(b);
+        });
     };
     Directory.prototype.walk = function(job) {
         for (const dir of this.subDirectories.values()) {

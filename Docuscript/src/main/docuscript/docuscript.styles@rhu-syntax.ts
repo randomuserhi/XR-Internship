@@ -23,22 +23,22 @@ RHU.module(new Error(), "docuscript/style",
             }
 
             ${body} h1 {
-                font-size: 2.5rem;
-            }
-            ${body} h2 {
                 font-size: 2rem;
             }
-            ${body} h3 {
+            ${body} h2 {
                 font-size: 1.8rem;
             }
-            ${body} h4 {
+            ${body} h3 {
                 font-size: 1.5rem;
             }
-            ${body} h5 {
+            ${body} h4 {
                 font-size: 1.3rem;
             }
-            ${body} h6 {
+            ${body} h5 {
                 font-size: 1.125rem;
+            }
+            ${body} h6 {
+                font-size: 1rem;
             }
             `;
 
