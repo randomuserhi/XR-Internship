@@ -23,7 +23,7 @@
             },
             parse: function(children) {
                 let dom = document.createElement("br");
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -48,7 +48,7 @@
             },
             parse: function(children) {
                 let dom = document.createElement("p");
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -74,7 +74,7 @@
             },
             parse: function(children, node) {
                 let dom = document.createElement(`h${node.heading}`);
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -99,7 +99,7 @@
             },
             parse: function(children) {
                 let dom = document.createElement("div");
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -156,9 +156,9 @@
         const parser = page.parser as Docuscript.Parser<string, FuncMap>;
         let content = docuscript.parse(page);
 
-        let stack: Node[] = [];
+        let stack: globalThis.Node[][] = [];
         let walk = (node: Docuscript.Node<T>) => {
-            let wrapper = new DocumentFragment();
+            let wrapper: globalThis.Node[] = [];
 
             let parent = stack.length === 0 ? undefined : stack[stack.length - 1];
 
@@ -179,7 +179,7 @@
             }
 
             if (parent) {
-                parent.appendChild(dom);
+                parent.push(dom);
             } else {
                 fragment.append(dom);
             }

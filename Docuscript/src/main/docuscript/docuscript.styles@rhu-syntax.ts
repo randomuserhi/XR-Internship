@@ -50,6 +50,17 @@ RHU.module(new Error(), "docuscript/style",
             }
             `;
 
+            // ORDERED LISTS
+            style`
+            ${body} ol>li {
+                counter-increment: step-counter;
+            }
+            ${body} ol>li::before {
+                content: counter(step-counter) ")";
+                margin-right: 1rem;
+            }
+            `;
+
             return {
                 body,
             };

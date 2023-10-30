@@ -8,7 +8,7 @@ RHU.require(new Error(), {
     const snippets = `_snippets/${path}`;
 
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
-        h, p, img, br, code, link, mj
+        h, p, img, br, code, link, ol
     }) => {
         p(
             "This page outlines how to get started with setting up an XR environment for use with either the Hololens or Oculus Quest."
@@ -25,6 +25,10 @@ RHU.require(new Error(), {
         img(`${snippets}/visualstudio_setup.png`);
 
         h(1, "Setting up Unity");
+        ol(
+            "test 1",
+            "test 2"
+        )
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;

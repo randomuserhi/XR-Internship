@@ -42,7 +42,7 @@ declare namespace Docuscript {
     type Parser<T extends string, FuncMap extends NodeFuncMap<T>> = {
         [P in T]: {
             create: ToNodeMap<FuncMap>[P]["create"];
-            parse: (children: DocumentFragment, node: ReturnType<ToNodeMap<FuncMap>[P]["create"]>) => globalThis.Node;
+            parse: (children: globalThis.Node[], node: ReturnType<ToNodeMap<FuncMap>[P]["create"]>) => globalThis.Node;
         }
     };
     type ParserNodes<T extends string, FuncMap extends NodeFuncMap<T>> = {

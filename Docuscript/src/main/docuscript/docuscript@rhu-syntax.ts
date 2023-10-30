@@ -35,6 +35,7 @@ declare namespace RHUDocuscript {
             language: string;
         };
         mj: {};
+        ol: {};
     }
     type Language = keyof NodeMap;
 
@@ -52,7 +53,9 @@ declare namespace RHUDocuscript {
         pl: (path: string, index?: number, ...children: (string | Node)[]) => Node<"pl">;
         link: (href: string, ...children: (string | Node)[]) => Node<"link">;
 
-        mj: (path: string, ...children: (string | Node)[]) => Node<"mj">;
+        mj: (...children: (string | Node)[]) => Node<"mj">;
+
+        ol: (...children: (string | Node)[]) => Node<"ol">;
 
         code: (language: string, ...content: (string)[]) => Node<"code">;
     }
@@ -91,6 +94,26 @@ RHU.module(new Error(), "docuscript", {
     }
 
     return {
+        ol: {
+            create: function(this: context, ...children) {
+                let node: node<"ol"> = {
+                    __type__: "ol",
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                const dom = document.createElement("ol");
+                for (const child of children) {
+                    const li = document.createElement("li");
+                    li.append(child);
+                    dom.append(li);
+                }
+                return dom;
+            }
+        },
         mj: {
             create: function(this: context, ...children) {
                 let node: node<"mj"> = {
@@ -103,7 +126,7 @@ RHU.module(new Error(), "docuscript", {
             },
             parse: function(children) {
                 const dom = document.createElement("span");
-                dom.append(children);
+                dom.append(...children);
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, dom]);
                 return dom;
             }
@@ -123,7 +146,7 @@ RHU.module(new Error(), "docuscript", {
                 const dom = document.createElement("a");
                 dom.target = "blank";
                 dom.href = node.href;
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -140,7 +163,7 @@ RHU.module(new Error(), "docuscript", {
             },
             parse: function(children, node) {
                 const dom = document.createMacro(codeblock);
-                dom.append(children);
+                dom.append(...children);
                 dom.setLanguage(node.language);
                 return dom;
             },
@@ -170,7 +193,7 @@ RHU.module(new Error(), "docuscript", {
                         }
                     });
                 }
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -206,7 +229,7 @@ RHU.module(new Error(), "docuscript", {
             },
             parse: function(children) {
                 let dom = document.createElement("br");
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -231,7 +254,7 @@ RHU.module(new Error(), "docuscript", {
             },
             parse: function(children) {
                 let dom = document.createElement("p");
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -273,7 +296,7 @@ RHU.module(new Error(), "docuscript", {
                     });
                     dom.append(link);
                 }
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -289,7 +312,7 @@ RHU.module(new Error(), "docuscript", {
             },
             parse: function(children) {
                 let dom = document.createElement("div");
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             }
         },
@@ -305,7 +328,7 @@ RHU.module(new Error(), "docuscript", {
             },
             parse: function(children) {
                 let dom = new DocumentFragment();
-                dom.append(children);
+                dom.append(...children);
                 return dom;
             },
         },
