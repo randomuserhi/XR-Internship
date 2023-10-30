@@ -32,13 +32,18 @@ declare namespace RHUDocuscript {
             href: string;
         };
         code: {
-            language: string;
+            language?: string;
+        };
+        icode: {
+            language?: string;  
         };
         mj: {};
         ol: {};
         desmos: {
             src: string;
         };
+        i: {};
+        b: {};
     }
     type Language = keyof NodeMap;
 
@@ -46,6 +51,8 @@ declare namespace RHUDocuscript {
         img: (src: string) => Node<"img">;
         text: (text: string) => Node<"text">;
         br: () => Node<"br">;
+        i: (...children: (string | Node)[]) => Node<"i">;
+        b: (...children: (string | Node)[]) => Node<"b">;
         p: (...children: (string | Node)[]) => Node<"p">;
         
         h: (heading: number, label: string, ...children: (string | Node)[]) => Node<"h">;
@@ -60,7 +67,8 @@ declare namespace RHUDocuscript {
 
         ol: (...children: (string | Node)[]) => Node<"ol">;
 
-        code: (language: string, ...content: (string)[]) => Node<"code">;
+        code: (language: string | undefined, ...content: (string)[]) => Node<"code">;
+        icode: (language: string | undefined, ...content: (string)[]) => Node<"icode">;
 
         desmos: (src: string) => Node<"desmos">;
     }
@@ -100,6 +108,38 @@ RHU.module(new Error(), "docuscript", {
     }
 
     return {
+        i: {
+            create: function(this: context, ...children) {
+                let node: node<"i"> = {
+                    __type__: "i",
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                let dom = document.createElement("i");
+                dom.append(...children);
+                return dom;
+            }
+        },
+        b: {
+            create: function(this: context, ...children) {
+                let node: node<"b"> = {
+                    __type__: "b",
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                let dom = document.createElement("b");
+                dom.append(...children);
+                return dom;
+            }
+        },
         desmos: {
             create: function(this: context, src) {
                 let node: node<"desmos"> = {
@@ -129,7 +169,9 @@ RHU.module(new Error(), "docuscript", {
                 const dom = document.createElement("ol");
                 for (const child of children) {
                     const li = document.createElement("li");
-                    li.append(child);
+                    const wrapper = document.createElement("div");
+                    wrapper.append(child);
+                    li.append(wrapper);
                     dom.append(li);
                 }
                 return dom;
@@ -171,8 +213,30 @@ RHU.module(new Error(), "docuscript", {
                 return dom;
             }
         },
+        icode: {
+            create: function(this: context, language: string | undefined, ...children) {
+                let node: node<"icode"> = {
+                    __type__: "icode",
+                    language,
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children, node) {
+                const dom = document.createElement("span");
+                dom.classList.toggle(`${style.inlineCode}`, true);
+                dom.append(...children);
+                if (node.language) {
+                    dom.classList.toggle(node.language, true);
+                }
+                hljs.highlightElement(dom);
+                return dom;
+            },
+        },
         code: {
-            create: function(this: context, language: string, ...children) {
+            create: function(this: context, language: string | undefined, ...children) {
                 let node: node<"code"> = {
                     __type__: "code",
                     language,
@@ -260,16 +324,7 @@ RHU.module(new Error(), "docuscript", {
                     __type__: "p",
                 };
 
-                for (let child of children) {
-                    let childNode: node;
-                    if (typeof child === "string") {
-                        childNode = this.nodes.text(child);
-                    } else {
-                        childNode = child;
-                    }
-                    
-                    this.remount(childNode, node);
-                }
+                mountChildrenText(this, node, children);
 
                 return node;
             },

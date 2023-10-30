@@ -3,6 +3,7 @@ declare namespace RHU {
         "docuscript/style": {
             body: Style.ClassName;
             desmos: Style.ClassName;
+            inlineCode: Style.ClassName;
         };
     }
 }
@@ -14,6 +15,16 @@ RHU.module(new Error(), "docuscript/style",
         const style = Style(({ style }) => {
             const body = style.class`
             `;
+
+            // ITALICS & BOLD
+            style`
+            ${body} i {
+                font-style: italic;
+            }
+            ${body} b {
+                font-style: bold;
+            }
+            `
 
             // HEADINGS
             style`
@@ -55,10 +66,11 @@ RHU.module(new Error(), "docuscript/style",
             style`
             ${body} ol>li {
                 counter-increment: step-counter;
+                display: flex;
+                gap: 1rem;
             }
             ${body} ol>li::before {
                 content: counter(step-counter) ")";
-                margin-right: 1rem;
             }
             `;
 
@@ -69,10 +81,17 @@ RHU.module(new Error(), "docuscript/style",
             aspect-ratio: 800/600;
             border: 0px;
             `;
+            
+            // INLINE CODE
+            const inlineCode = style.class`
+            padding: 0 3px;
+            border-radius: 3px;
+            `;
 
             return {
                 body,
                 desmos,
+                inlineCode,
             };
         });
 

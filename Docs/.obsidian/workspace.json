@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Toolkits/Getting started with toolkits.md",
+                "file": "Getting Started.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Toolkits/Getting started with toolkits.md",
+                "file": "Getting Started.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,8 +115,11 @@
   },
   "active": "4d1524e3a1ce5be8",
   "lastOpenFiles": [
-    "Getting Started.md",
     "Building and Deploying.md",
+    "Getting Started.md",
+    "Snippets/Pasted image 20220929060550.png",
+    "Snippets/Pasted image 20220929060439.png",
+    "Snippets/Pasted image 20220929060253.png",
     "Toolkits/Getting started with toolkits.md",
     "node_modules/@types/three/src/materials/SpriteMaterial.d.ts",
     "node_modules/@types/three/src/materials/ShadowMaterial.d.ts",
@@ -149,7 +152,6 @@
     "node_modules/through2/node_modules/string_decoder/README.md",
     "node_modules/through2/node_modules/readable-stream/README.md",
     "node_modules/through2/node_modules/readable-stream/GOVERNANCE.md",
-    "node_modules/through2/node_modules/readable-stream/CONTRIBUTING.md",
-    "node_modules/through2/node_modules/isarray/README.md"
+    "node_modules/through2/node_modules/readable-stream/CONTRIBUTING.md"
   ]
 }

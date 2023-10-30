@@ -320,6 +320,11 @@ RHU.module(new Error(), "components/organisms/docpages", {
                     }
                 }
             });
+            // Add a footer element to increase scrollability
+            const footerDom = document.createElement("div");
+            footerDom.style.width = "100%";
+            footerDom.style.height = "70vh";
+            pageDom.append(footerDom);
             if (this.destructor) {
                 this.destructor();
             }

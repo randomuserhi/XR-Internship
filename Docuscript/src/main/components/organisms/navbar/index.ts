@@ -51,7 +51,7 @@ RHU.module(new Error(), "components/organisms/navbar", {
             </button>-->
             <button rhu-id="githubBtn" class="${style.profile}">
                 <div>
-                    <a style="position: relative; display: inline-block;" href="https://github.com/randomuserhi/" target="blank">
+                    <a style="position: relative; display: inline-block;" href="https://github.com/randomuserhi/XR-Internship" target="blank">
                         <!-- profile image -->
                         <img rhu-id="avatar" class="${style.profile.avatar}" src="https://avatars.githubusercontent.com/u/40913834?s=40&v=4"/>
                         <!-- notification circle -->
