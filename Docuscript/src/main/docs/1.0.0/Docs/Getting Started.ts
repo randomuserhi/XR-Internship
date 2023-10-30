@@ -29,8 +29,6 @@ RHU.require(new Error(), {
             "test 1",
             "test 2"
         );
-        desmos("3d/7014e8d4d5");
-        p("test");
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;
