@@ -34,6 +34,7 @@ declare namespace RHUDocuscript {
         code: {
             language: string;
         };
+        mj: {};
     }
     type Language = keyof NodeMap;
 
@@ -50,6 +51,8 @@ declare namespace RHUDocuscript {
 
         pl: (path: string, index?: number, ...children: (string | Node)[]) => Node<"pl">;
         link: (href: string, ...children: (string | Node)[]) => Node<"link">;
+
+        mj: (path: string, ...children: (string | Node)[]) => Node<"mj">;
 
         code: (language: string, ...content: (string)[]) => Node<"code">;
     }
@@ -88,6 +91,23 @@ RHU.module(new Error(), "docuscript", {
     }
 
     return {
+        mj: {
+            create: function(this: context, ...children) {
+                let node: node<"mj"> = {
+                    __type__: "mj",
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                const dom = document.createElement("span");
+                dom.append(children);
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, dom]);
+                return dom;
+            }
+        },
         link: {
             create: function(this: context, href, ...children) {
                 let node: node<"link"> = {
