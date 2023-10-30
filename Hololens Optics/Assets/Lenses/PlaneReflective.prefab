@@ -115,44 +115,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surface: {fileID: 11400000, guid: 2316d7c91120691468598766c5044535, type: 2}
-  _surface:
-    settings:
-      type: 2
-      invR1: 0
-      invR2: 0
-      refractionSettings:
-        type: 0
-        single:
-          m: 0
-          c: 0
-          isFixed: 0
-          refractionIndex: 0
-        positive:
-          m: 0
-          c: 0
-          isFixed: 0
-          refractionIndex: 0
-        negative:
-          m: 0
-          c: 0
-          isFixed: 0
-          refractionIndex: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    minimum: {x: 0, y: 0, z: 0}
-    maximum: {x: 0, y: 0, z: 0}
-    radial: 0
-    surface:
-      g: 0
-      h: 0
-      i: 0
-      j: 0
-      k: 0
-      l: 0
-      m: 0
-      n: 0
-      o: 0
-      p: 0
+  settings:
+    type: 2
+    invR1: 0
+    invR2: 0
+    refractionSettings:
+      type: 0
+      single:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
+      positive:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
+      negative:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
   enableCollision: 1
 --- !u!114 &7414664778074249206
 MonoBehaviour:
@@ -167,42 +150,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surface: {fileID: 11400000, guid: d63cf1c04d6e1a747bb6153c62cb9cae, type: 2}
-  _surface:
-    settings:
-      type: 2
-      invR1: 0
-      invR2: 0
-      refractionSettings:
-        type: 0
-        single:
-          m: 0
-          c: 0
-          isFixed: 0
-          refractionIndex: 0
-        positive:
-          m: 0
-          c: 0
-          isFixed: 0
-          refractionIndex: 0
-        negative:
-          m: 0
-          c: 0
-          isFixed: 0
-          refractionIndex: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    minimum: {x: 0, y: 0, z: 0}
-    maximum: {x: 0, y: 0, z: 0}
-    radial: 0
-    surface:
-      g: 0
-      h: 0
-      i: 0
-      j: 0
-      k: 0
-      l: 0
-      m: 0
-      n: 0
-      o: 0
-      p: 0
+  settings:
+    type: 2
+    invR1: 0
+    invR2: 0
+    refractionSettings:
+      type: 0
+      single:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
+      positive:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
+      negative:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
   enableCollision: 1

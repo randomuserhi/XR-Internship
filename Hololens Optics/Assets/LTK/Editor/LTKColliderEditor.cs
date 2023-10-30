@@ -16,13 +16,13 @@ public class LTKColliderEditor : Editor
     private void OnEnable()
     {
         c = (LTKCollider)target;
-        ref SurfaceSettings settings = ref c._surface.settings;
+        ref SurfaceSettings settings = ref c.settings;
         surfaceProperty = serializedObject.FindProperty("surface");
     }
 
     public override void OnInspectorGUI()
     {
-        ref SurfaceSettings settings = ref c._surface.settings;
+        ref SurfaceSettings settings = ref c.settings;
 
         EditorGUILayout.PropertyField(surfaceProperty);
 

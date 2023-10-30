@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace LightTK
 {
@@ -20,38 +21,38 @@ namespace LightTK
             set { surface.maximum.z = value; }
         }
 
-        public float offset
-        {
-            get { return surface.surface.i; }
-            set { surface.surface.i = value; }
-        }
-
         public float radius
         {
-            get { return -surface.surface.p; }
-            set { surface.surface.p = -value; }
+            get { return Mathf.Sqrt(-surface.equation.p); }
+            set { surface.equation.p = -(value * value); }
         }
 
-        public Sphere(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity, float offset = 0)
+        public Sphere(float minimum = float.NegativeInfinity, float maximum = float.PositiveInfinity)
         {
-            Equation eq = new Equation()
-            {
-                j = 1f,
-                k = 1f,
-                l = 1f,
-                p = -1f
-            };
-
             surface = new Surface()
             {
-                surface = Equation.Sphere,
+                equation = Equation.Sphere,
                 minimum = Vector3.negativeInfinity,
                 maximum = Vector3.positiveInfinity,
                 settings = RefractionEquation.crownGlass
             };
+
             this.minimum = minimum;
             this.maximum = maximum;
-            this.offset = offset;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.LabelField("Ellipsoid Settings", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Bounds", EditorStyles.boldLabel);
+            minimum = EditorGUILayout.FloatField("Minimum", minimum);
+            maximum = EditorGUILayout.FloatField("Maximum", maximum);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
+            radius = EditorGUILayout.FloatField("Radius", radius);
         }
     }
 }

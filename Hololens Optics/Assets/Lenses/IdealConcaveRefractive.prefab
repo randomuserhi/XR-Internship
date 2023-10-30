@@ -114,42 +114,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surface: {fileID: 11400000, guid: 687fcb4e4b7ac2f479a24d80051ca916, type: 2}
-  _surface:
-    settings:
+  settings:
+    type: 0
+    invR1: -4
+    invR2: 4
+    refractionSettings:
       type: 0
-      invR1: -4
-      invR2: 4
-      refractionSettings:
-        type: 0
-        single:
-          m: 0
-          c: 0
-          isFixed: 1
-          refractionIndex: 1.523
-        positive:
-          m: 0
-          c: 0
-          isFixed: 1
-          refractionIndex: 1
-        negative:
-          m: 0
-          c: 0
-          isFixed: 1
-          refractionIndex: 1.5
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    minimum: {x: 0, y: 0, z: 0}
-    maximum: {x: 0, y: 0, z: 0}
-    radial: 0
-    surface:
-      g: 0
-      h: 0
-      i: 0
-      j: 0
-      k: 0
-      l: 0
-      m: 0
-      n: 0
-      o: 0
-      p: 0
+      single:
+        m: 0
+        c: 0
+        isFixed: 1
+        refractionIndex: 1.523
+      positive:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
+      negative:
+        m: 0
+        c: 0
+        isFixed: 0
+        refractionIndex: 0
   enableCollision: 1

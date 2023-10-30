@@ -38,10 +38,10 @@ MonoBehaviour:
           refractionIndex: 0
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
-    minimum: {x: -0.05, y: -0.05, z: -1e+11}
-    maximum: {x: 0.05, y: 0.05, z: 1e+11}
+    minimum: {x: -0.05, y: -0.05, z: -Infinity}
+    maximum: {x: 0.05, y: 0.05, z: Infinity}
     radial: 0.05
-    surface:
+    equation:
       g: 0
       h: 0
       i: 0
