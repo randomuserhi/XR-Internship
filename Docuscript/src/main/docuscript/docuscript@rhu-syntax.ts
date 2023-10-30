@@ -36,6 +36,9 @@ declare namespace RHUDocuscript {
         };
         mj: {};
         ol: {};
+        desmos: {
+            src: string;
+        };
     }
     type Language = keyof NodeMap;
 
@@ -58,6 +61,8 @@ declare namespace RHUDocuscript {
         ol: (...children: (string | Node)[]) => Node<"ol">;
 
         code: (language: string, ...content: (string)[]) => Node<"code">;
+
+        desmos: (src: string) => Node<"desmos">;
     }
 
     type Page = Docuscript.Page<Language, FuncMap>;
@@ -67,9 +72,10 @@ declare namespace RHUDocuscript {
 }
 
 RHU.module(new Error(), "docuscript", {
-    codeblock: "docuscript/components/molecules/codeblock"
+    codeblock: "docuscript/components/molecules/codeblock",
+    style: "docuscript/style"
 }, function({
-    codeblock
+    codeblock, style
 }) {
     type context = RHUDocuscript.Context;
     type node<T extends RHUDocuscript.Language | undefined = undefined> = RHUDocuscript.Node<T>;
@@ -94,6 +100,21 @@ RHU.module(new Error(), "docuscript", {
     }
 
     return {
+        desmos: {
+            create: function(this: context, src) {
+                let node: node<"desmos"> = {
+                    __type__: "desmos",
+                    src
+                }
+                return node;
+            },
+            parse: function(_, node) {
+                const dom = document.createElement("iframe");
+                dom.classList.toggle(`${style.desmos}`, true);
+                dom.src=`https://www.desmos.com/${node.src}?embed`;
+                return dom;
+            }
+        },
         ol: {
             create: function(this: context, ...children) {
                 let node: node<"ol"> = {

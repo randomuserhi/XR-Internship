@@ -31,6 +31,7 @@ declare namespace Organisms {
         
         currentPath: string;
         currentVersion: string;
+        destructor: () => void; // current page destructor
     }
 }
 
@@ -236,7 +237,7 @@ RHU.module(new Error(), "components/organisms/docpages", {
             const depths: number[] = [];
             let i = 0;
             let scrollTarget: HTMLElement | undefined;
-            let pageDom = docuscript.render<RHUDocuscript.Language, RHUDocuscript.FuncMap>(page, { 
+            let [pageDom, destructor] = docuscript.render<RHUDocuscript.Language, RHUDocuscript.FuncMap>(page, { 
                 pre: (node) => {
                     if (node.__type__ === "h") {
                         const h = node as RHUDocuscript.Node<"h">;
@@ -319,6 +320,10 @@ RHU.module(new Error(), "components/organisms/docpages", {
                     }
                 }
             });
+            if (this.destructor) {
+                this.destructor();
+            }
+            this.destructor = destructor;
             this.content.replaceChildren(pageDom);
             this.outline.classList.toggle(`${style.outline.hidden}`, frag.childElementCount === 0);
             this.headerlist.replaceChildren(frag);

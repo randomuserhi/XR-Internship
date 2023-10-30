@@ -151,9 +151,10 @@
     docuscript.render = function<T extends string, FuncMap extends Docuscript.NodeFuncMap<T>>(page: Docuscript.Page<T, FuncMap>, patch?: {
         pre?: (node: Docuscript.Node<T>) => void;
         post?: (node: Docuscript.Node<T>, dom: Node) => void;
-    }) {
+    }): [DocumentFragment, () => void] {
         const fragment = new DocumentFragment();
         const parser = page.parser as Docuscript.Parser<string, FuncMap>;
+        const destructors: (()=>void)[] = [];
         let content = docuscript.parse(page);
 
         let stack: globalThis.Node[][] = [];
@@ -173,7 +174,20 @@
             if (patch && patch.pre) {
                 patch.pre(node);
             }
-            let dom = parser[node.__type__].parse(wrapper, node as any);
+            let result = parser[node.__type__].parse(wrapper, node as any);
+            let data: any = undefined;
+            let dom: globalThis.Node;
+            if (Array.isArray(result)) {
+                dom = result[0];
+                data = result[1];
+            } else {
+                dom = result;
+            }
+            if (parser[node.__type__].destructor) {
+                destructors.push(() => {
+                    parser[node.__type__].destructor!(data);
+                });
+            }
             if (patch && patch.post) {
                 patch.post(node, dom);
             }
@@ -190,7 +204,11 @@
             walk(node);
         }
 
-        return fragment;
+        return [fragment, () => {
+            for (const destructor of destructors) {
+                destructor();
+            }
+        }];
     };
 
     docuscript.defaultParser = defaultParser;

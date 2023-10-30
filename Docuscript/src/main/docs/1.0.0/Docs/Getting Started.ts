@@ -8,7 +8,7 @@ RHU.require(new Error(), {
     const snippets = `_snippets/${path}`;
 
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
-        h, p, img, br, code, link, ol
+        h, p, img, br, code, link, ol, desmos
     }) => {
         p(
             "This page outlines how to get started with setting up an XR environment for use with either the Hololens or Oculus Quest."
@@ -28,7 +28,9 @@ RHU.require(new Error(), {
         ol(
             "test 1",
             "test 2"
-        )
+        );
+        desmos("3d/7014e8d4d5");
+        p("test");
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;
