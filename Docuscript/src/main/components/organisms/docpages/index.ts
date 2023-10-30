@@ -259,6 +259,9 @@ RHU.module(new Error(), "components/organisms/docpages", {
                         }
                         const link = url.toString();
                         pl.link = link;
+                    } else if (node.__type__ === "img") {
+                        const img = node as RHUDocuscript.Node<"img">;
+                        img.src = path.join(DOCUSCRIPT_ROOT, this.currentVersion, img.src);
                     }
                 },
                 post: (node, dom) => {

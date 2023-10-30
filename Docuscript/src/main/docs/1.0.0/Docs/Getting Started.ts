@@ -5,9 +5,10 @@ RHU.require(new Error(), {
 }) {
     const version = "1.0.0";
     const path = "Docs/Getting Started";
-    
+    const snippets = `_snippets/${path}`;
+
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
-        h, p, div, br, code, link
+        h, p, img, br, code, link
     }) => {
         p(
             "This page outlines how to get started with setting up an XR environment for use with either the Hololens or Oculus Quest."
@@ -21,7 +22,7 @@ RHU.require(new Error(), {
         p(
             "In the installer make sure to have the following selected:"
         );
-
+        img(`${snippets}/visualstudio_setup.png`);
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;

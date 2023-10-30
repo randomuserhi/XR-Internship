@@ -42,6 +42,14 @@ RHU.module(new Error(), "docuscript/style",
             }
             `;
 
+            // IMAGES
+            style`
+            ${body} img {
+                border-radius: 8px;
+                margin: 8px 0;
+            }
+            `;
+
             return {
                 body,
             };
