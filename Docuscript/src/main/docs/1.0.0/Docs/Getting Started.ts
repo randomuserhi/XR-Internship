@@ -23,6 +23,9 @@ RHU.require(new Error(), {
             "In the installer make sure to have the following selected:"
         );
         img(`${snippets}/visualstudio_setup.png`);
+
+        h(1, "Setting up Unity");
+        
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;
