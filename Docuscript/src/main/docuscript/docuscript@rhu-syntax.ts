@@ -8,6 +8,7 @@ declare namespace RHUDocuscript {
     interface NodeMap {
         img: {
             src: string;
+            width?: string;
         };
         text: {
             text: string;
@@ -48,7 +49,7 @@ declare namespace RHUDocuscript {
     type Language = keyof NodeMap;
 
     interface FuncMap extends Docuscript.NodeFuncMap<Language> {
-        img: (src: string) => Node<"img">;
+        img: (src: string, width?: string) => Node<"img">;
         text: (text: string) => Node<"text">;
         br: () => Node<"br">;
         i: (...children: (string | Node)[]) => Node<"i">;
@@ -283,15 +284,19 @@ RHU.module(new Error(), "docuscript", {
             }
         },
         img: {
-            create: function(src) {
+            create: function(src, width) {
                 return {
                     __type__: "img",
-                    src: src,
+                    src,
+                    width
                 }
             },
             parse: function(_, node) {
                 let img = document.createElement("img");
                 img.src = node.src;
+                if (node.width) {
+                    img.style.width = node.width;
+                }
                 return img;
             }
         },

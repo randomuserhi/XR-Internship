@@ -16,6 +16,16 @@ RHU.module(new Error(), "docuscript/style",
             const body = style.class`
             `;
 
+            // BASE
+            style`
+            ${body} p,
+            ${body} li,
+            ${body} ol,
+            ${body} div {
+                width: 100%;
+            }
+            `;
+
             // ITALICS & BOLD
             style`
             ${body} i {
@@ -58,19 +68,22 @@ RHU.module(new Error(), "docuscript/style",
             style`
             ${body} img {
                 border-radius: 8px;
-                margin: 8px 0;
+                margin: 8px auto;
             }
             `;
 
             // ORDERED LISTS
             style`
+            ${body} ol {
+                counter-reset: list-item;
+            }
             ${body} ol>li {
-                counter-increment: step-counter;
                 display: flex;
                 gap: 1rem;
             }
             ${body} ol>li::before {
-                content: counter(step-counter) ")";
+                content: counter(list-item) ") ";
+                counter-increment: list-item;
             }
             `;
 

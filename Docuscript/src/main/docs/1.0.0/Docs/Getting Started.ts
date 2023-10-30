@@ -61,10 +61,56 @@ RHU.require(new Error(), {
         );
 
         h(1, "Setup Headsets");
+        p(
+            "Different headsets require some additional setup:"
+        )
 
         h(2, "Hololens 2");
+        ol(
+            frag(
+                p(
+                    "Turn on ", icode(undefined, "Developer Mode"), " in windows settings on ", i("both"), " the hololens and desktop: (Make sure they are paired, click pair on hololens ",
+                    "and input code)"
+                ),
+                img(`${snippets}/hololens_setup0.png`)
+            )
+        );
 
         h(2, "Oculus Quest");
+        ol(
+            p("Create an Oculus account." ),
+            p("Sign up for developer ", link("https://developer.oculus.com/", "here"), "."),
+            frag(
+                p(
+                    "Download the ", link("https://store.facebook.com/gb/en/quest/setup/?utm_source=l.facebook.com&utm_medium=oculusredirect", "Oculus Desktop App"), "."
+                ),
+                img(`${snippets}/oculus_setup0.png`, "60%")
+            ),
+            p("Download the Oculus mobile app."),
+            p("Login with your Oculus account on both desktop and mobile."),
+            frag(
+                p("Connect to Oculus on mobile app using bluetooth."),
+                ol(
+                    frag(
+                        p("Go to ", icode(undefined, "menu"), " in the bottom right and select devices:"),
+                        img(`${snippets}/oculus_setup1.png`, "60%")
+                    ),
+                    frag(
+                        p("Scroll down to ", icode(undefined, "Developer Mode"), "."),
+                        img(`${snippets}/oculus_setup2.png`, "60%")
+                    ),
+                    frag(
+                        p("Enable ", icode(undefined, "Developer Mode"), "."),
+                        img(`${snippets}/oculus_setup3.png`, "40%")
+                    )
+                )
+            ),
+            p("Install the ", link("https://developer.oculus.com/downloads/package/oculus-adb-drivers/", "Oculus adb drivers"), "."),
+            p(
+                "Connect the headset to your PC via link cable (USB-C connection). When you put the headset on it should prompt you to enable ", icode(undefined, "USB Debugging"), ". Click ",
+                icode(undefined, "Allow"), "."
+            )
+        );
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;
