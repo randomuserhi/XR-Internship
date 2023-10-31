@@ -338,8 +338,7 @@ RHU.require(new Error(), {
 
         h(3, "Oculus to Hololens");
         p("In ", icode([], "Edit > Project Settings"), " disable ", icode([], "OculusXR Feature"), " and enable ", icode([], "holographic remoting"), ":"),
-        img(`${snippets}/oculus_to_hololens0.png`),
-        img(`${snippets}/oculus_to_hololens1.png`)
+        img(`${snippets}/oculus_to_hololens0.png`)
 
         h(2, "Builds");
         p("For builds, simply switching build target is enough. (", icode([], "Android"), " for Oculus and ", icode([], "Universal Windows Platform (UWP)"), " for hololens).");
