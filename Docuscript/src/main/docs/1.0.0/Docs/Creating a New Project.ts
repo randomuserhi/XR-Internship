@@ -201,15 +201,9 @@ RHU.require(new Error(), {
         ol(
             frag(
                 p(
-                    "Via the package manager, import the ", link("https://assetstore.unity.com/packages/tools/integration/oculus-integration-82022", "Oculus Integration"), 
-                    " package and download via git url: ", icode([], "com.unity.xr.oculus"), "."
+                    "Via the package manager download Oculus XR Plugin via git url: ", icode([], "com.unity.xr.oculus"), "."
                 ),
                 ol(
-                    frag(
-                        p(i("NOTE:: You will need to go the unity asset store and download the asset onto your unity account so that it shows up under ", icode([], "My Assets"))),
-                        img(`${snippets}/unity_setup_oculus0.png`),
-                        p(i("NOTE:: If Unity asks what specific files to import, simply select all and click ", icode([], "Import")))
-                    ),
                     frag(
                         p("When prompted to update ", icode([], "OVR"), " click ", icode([], "yes"), ":"),
                         img(`${snippets}/unity_setup_oculus1.png`),
@@ -243,6 +237,14 @@ RHU.require(new Error(), {
                         img(`${snippets}/unity_setup_oculus8.png`),
                     ),
                 )
+            ),
+            frag(
+                p(
+                    "Copy and paste the ", icode([], "Oculus") ," folder from ", icode([], "Oculus Integration v43"), ", located in the ", 
+                    link("https://github.com/randomuserhi/XR-Internship", "github repo"), ", to your assets folder."
+                ),
+                p(i("NOTE:: We use an older version of Oculus Integration since for some reason, hand tracking does not work on android builds for the newest version.")),
+                p(i("TODO:: INCLUDE IMAGE HERE"))
             ),
             p(
                 "Plug in your Oculus Quest 2 headset and make sure it is connected via the ", link("https://www.meta.com/gb/en/quest/setup/?utm_source=l.facebook.com&utm_medium=oculusredirect", "Oculus Desktop App"),
