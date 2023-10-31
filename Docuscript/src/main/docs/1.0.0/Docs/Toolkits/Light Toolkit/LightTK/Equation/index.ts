@@ -91,7 +91,7 @@ public struct Equation
         h(2, "Sphere")
         p("A sphere can be defined as so:");
         mj(`$$x^2+y^2+z^2+p=0$$`);
-        p("Where ", mj("$p$"), " is the radius-squared of the sphere.");
+        p("Where ", mj("$|p|$"), " is the radius-squared of the sphere.");
         br();
         mj(`$$
 j = 1f \\\\
