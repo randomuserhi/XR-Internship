@@ -22,10 +22,23 @@ RHU.module(new Error(), "docuscript/style",
             ${body} li,
             ${body} ol,
             ${body} ul,
-            ${body} div {
+            ${body} {
                 width: 100%;
             }
             `;
+
+            // TABLES
+            style`
+            ${body} table {
+                border: 1px solid #333;
+                border-collapse: collapse;
+            }
+            ${body} td {
+                vertical-align: top;
+                padding: 0.5rem;
+                border-block-start: 1px solid #333;
+            }
+            `
 
             // ITALICS & BOLD
             style`

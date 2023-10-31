@@ -97,7 +97,9 @@ RHU.module(new Error(), "components/molecules/filterlist", {
     })(), "atoms/filteritem", //html
         `
             <div rhu-id="body" class="${style.filteritem.content}">
-                <span rhu-id="dropdown" class="${style.filteritem.nochildren} ${style.dropdown}"></span>
+                <div class="${style.filteritem.align}">
+                    <span rhu-id="dropdown" class="${style.filteritem.nochildren} ${style.dropdown}"></span>
+                </div>
                 <a class="${style.filteritem}" rhu-id="label"></a>
             </div>
             <ol rhu-id="list" class="${style.filteritem.children}">

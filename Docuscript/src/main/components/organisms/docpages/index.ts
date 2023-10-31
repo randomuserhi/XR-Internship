@@ -161,7 +161,9 @@ RHU.module(new Error(), "components/organisms/docpages", {
     })(), "atoms/headeritem", //html
         `
             <div class="${style.headeritem.content}">
-                <span rhu-id="dropdown" class="${style.headeritem.nochildren} ${style.headeritem.dropdown}"></span>
+                <div class="${style.headeritem.align}">
+                    <span rhu-id="dropdown" class="${style.headeritem.nochildren} ${style.headeritem.dropdown}"></span>
+                </div>
                 <a class="${style.headeritem}" rhu-id="label"></a>
             </div>
             <ol rhu-id="list" class="${style.headeritem.children}">

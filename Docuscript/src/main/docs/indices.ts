@@ -38,6 +38,8 @@ declare namespace RHU {
                     docs.set("Docs/Toolkits/Menu Toolkit", "Docs/Toolkits/MTK/index.js");
                     docs.set("Docs/Toolkits/Fields Toolkit", "Docs/Toolkits/VRTK/index.js");
                     docs.set("Docs/Toolkits/Light Toolkit", "Docs/Toolkits/LTK/index.js");
+                        docs.set("Docs/Toolkits/Light Toolkit/LTK", "Docs/Toolkits/LTK/LTK.js");
+                            docs.set("Docs/Toolkits/Light Toolkit/LTK/GetIntersection", "Docs/Toolkits/LTK/GetIntersection.js");
         })(docs.create("1.0.0", "Durham VR Physics Project"));
 
         return {

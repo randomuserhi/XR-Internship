@@ -46,6 +46,11 @@ declare namespace RHUDocuscript {
         };
         i: {};
         b: {};
+        table: {
+            widths: string[];
+        };
+        tr: {};
+        td: {};
     }
     type Language = keyof NodeMap;
 
@@ -72,6 +77,10 @@ declare namespace RHUDocuscript {
 
         code: (params: [language?: string], ...content: (string)[]) => Node<"code">;
         icode: (params: [language?: string], ...content: (string)[]) => Node<"icode">;
+
+        table: (widths: string[], ...content: (string | Node)[]) => Node<"table">;
+        tr: (...content: (string | Node)[]) => Node<"tr">;
+        td: (...content: (string | Node)[]) => Node<"td">;
 
         desmos: (src: string) => Node<"desmos">;
     }
@@ -111,6 +120,63 @@ RHU.module(new Error(), "docuscript", {
     }
 
     return {
+        table: {
+            create: function(this: context, widths, ...children) {
+                let node: node<"table"> = {
+                    __type__: "table",
+                    widths
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children, node) {
+                for (const row of children) {
+                    for (let i = 0; i < node.widths.length && i < row.childNodes.length; ++i) {
+                        (row.childNodes[i] as HTMLElement).style.width = node.widths[i];
+                    }
+                }
+
+                let wrapper = document.createElement("table");
+                let dom = document.createElement("tbody");
+                dom.append(...children);
+                wrapper.append(dom);
+                return wrapper;
+            }
+        },
+        tr: {
+            create: function(this: context, ...children) {
+                let node: node<"tr"> = {
+                    __type__: "tr"
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                let dom = document.createElement("tr");
+                dom.append(...children);
+                return dom;
+            }
+        },
+        td: {
+            create: function(this: context, ...children) {
+                let node: node<"td"> = {
+                    __type__: "td"
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                let dom = document.createElement("td");
+                dom.append(...children);
+                return dom;
+            }
+        },
         i: {
             create: function(this: context, ...children) {
                 let node: node<"i"> = {
@@ -388,6 +454,11 @@ RHU.module(new Error(), "docuscript", {
                 dom.style.gap = "8px";
                 dom.style.alignItems = "center";
                 if (h.link) {
+                    const wrapper = document.createElement("div");
+                    wrapper.style.alignSelf = "stretch";
+                    wrapper.style.flexShrink = "0";
+                    wrapper.style.paddingTop = "0.8rem";
+                    wrapper.style.display = "flex";
                     const link = document.createElement("a");
                     link.href = h.link;
                     link.innerHTML = "";
@@ -401,7 +472,8 @@ RHU.module(new Error(), "docuscript", {
                             h.onclick(); 
                         }
                     });
-                    dom.append(link);
+                    wrapper.append(link);
+                    dom.append(wrapper);
                 }
                 dom.append(...children);
                 return dom;
