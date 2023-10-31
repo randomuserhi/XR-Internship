@@ -47,8 +47,13 @@ RHU.module(new Error(), "components/molecules/filterlist/style",
                 item: RHU.Style.ClassName;
             }>`
             display: flex;
+            padding: 8px;
             `;
             style`
+            ${path} li {
+                flex-shrink: 0;
+                text-wrap: nowrap;
+            }
             ${path} > li::after {
                 content: "/";
                 padding: 3px; 0;

@@ -91,6 +91,7 @@ RHU.module(new Error(), "components/organisms/docpages", {
                 }
             };
             script.onerror = () => {
+                console.error(`Page not found: ${script.src}`);
                 if (callback && callback.onerror) {
                     callback.onerror();
                 }
@@ -464,7 +465,12 @@ RHU.module(new Error(), "components/organisms/docpages", {
             <rhu-macro rhu-id="filterlist" class="${style.sidebar}" rhu-type="${filterlist}"></rhu-macro>
             <div class="${style.page}">
                 <div class="${style.content}">
-                    <ol rhu-id="path" class="${style.path}"></ol>
+                    <div style="
+                        width: 100%;
+                        overflow-x: auto;
+                    ">
+                        <ol rhu-id="path" class="${style.path}"></ol>
+                    </div>
                     <h1 rhu-id="pageTitle" style="
                         font-size: 2.5rem;
                         font-weight: 700;

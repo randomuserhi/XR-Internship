@@ -4,7 +4,7 @@ RHU.require(new Error(), {
     docs, rhuDocuscript,
 }) {
     const version = "1.0.0";
-    const path = "Docs/Toolkits/Light Toolkit/LTK/GetIntersection";
+    const path = "Docs/Toolkits/Light Toolkit/LightTK/LTK/GetIntersection";
     const snippets = `_snippets/${path}`;
     
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
@@ -119,7 +119,7 @@ RHU.require(new Error(), {
                 ),
             },
         ]);
-
+        
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;

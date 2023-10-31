@@ -24,22 +24,39 @@ declare namespace RHU {
     }) {
         
         ((docs: Docs) => {
-            docs.set("Durham VR Physics Project", "Durham VR Physics Project.js", 0);
+            const stack: string[] = [];
+            const dir = (dir: string, func: (path: string) => void) => {
+                stack.push(dir);
+                func(stack.join("/"));
+                stack.pop();
+            };
 
-            docs.set("Docs", undefined, 1);
-                docs.set("Docs/Getting Started", "Docs/Getting Started.js", 0);
-                docs.set("Docs/Creating a New Project", "Docs/Creating a New project.js", 1);
-                docs.set("Docs/Building and Deploying", "Docs/Building and Deploying.js", 2);
-                docs.set("Docs/Toolkits", "Docs/Toolkits/Toolkits.js", 3);
-                    docs.set("Docs/Toolkits/Getting Started with Toolkits", "Docs/Toolkits/Getting Started with Toolkits.js", 0);
-                    docs.set("Docs/Toolkits/Virtual Reality Toolkit", "Docs/Toolkits/VRTK/index.js");
-                    docs.set("Docs/Toolkits/Interaction Toolkit", "Docs/Toolkits/ITK/index.js");
-                    docs.set("Docs/Toolkits/Networking Toolkit", "Docs/Toolkits/NTK/index.js");
-                    docs.set("Docs/Toolkits/Menu Toolkit", "Docs/Toolkits/MTK/index.js");
-                    docs.set("Docs/Toolkits/Fields Toolkit", "Docs/Toolkits/VRTK/index.js");
-                    docs.set("Docs/Toolkits/Light Toolkit", "Docs/Toolkits/LTK/index.js");
-                        docs.set("Docs/Toolkits/Light Toolkit/LTK", "Docs/Toolkits/LTK/LTK.js");
-                            docs.set("Docs/Toolkits/Light Toolkit/LTK/GetIntersection", "Docs/Toolkits/LTK/GetIntersection.js");
+            docs.set("Durham VR Physics Project", "Durham VR Physics Project.js", 0);
+            docs.set(`Docs`, undefined, 1);
+            dir("Docs", (p) => {
+                docs.set(`${p}/Getting Started`, `${p}/Getting Started.js`, 0);
+                docs.set(`${p}/Creating a New Project`, `${p}/Creating a New project.js`, 1);
+                docs.set(`${p}/Building and Deploying`, `${p}/Building and Deploying.js`, 2);
+                docs.set(`${p}/Toolkits`, `${p}/Toolkits/index.js`, 3);
+                dir("Toolkits", (p) => {
+                    docs.set(`${p}/Getting Started with Toolkits`, `${p}/Getting Started with Toolkits.js`, 0);
+                    docs.set(`${p}/Virtual Reality Toolkit`, `${p}/Virtual Reality Toolkit/index.js`);
+                    docs.set(`${p}/Interaction Toolkit`, `${p}/Interaction Toolkit/index.js`);
+                    docs.set(`${p}/Networking Toolkit`, `${p}/Networking Toolkit/index.js`);
+                    docs.set(`${p}/Menu Toolkit`, `${p}/Menu Toolkit/index.js`);
+                    docs.set(`${p}/Fields Toolkit`, `${p}/Fields Toolkit/index.js`);
+                    docs.set(`${p}/Light Toolkit`, `${p}/Light Toolkit/index.js`);
+                    dir("Light Toolkit", (p) => {
+                        dir("LightTK", (p) => {
+                            docs.set(`${p}/LTK`, `${p}/LTK/index.js`);
+                            dir("LTK", (p) => {
+                                docs.set(`${p}/GetIntersection`, `${p}/GetIntersection.js`);
+                            });
+                            docs.set(`${p}/Surface`, `${p}/Surface/index.js`);
+                        });
+                    });
+                });
+            });
         })(docs.create("1.0.0", "Durham VR Physics Project"));
 
         return {

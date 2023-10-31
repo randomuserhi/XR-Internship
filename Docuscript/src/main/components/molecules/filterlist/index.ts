@@ -262,7 +262,12 @@ RHU.module(new Error(), "components/molecules/filterlist", {
             <!--<input rhu-id="search" type="text" style="
                 width: 100%;
             "/>-->
-            <ol rhu-id="path" class="${style.path}"></ol>
+            <div style="
+                width: 100%;
+                overflow-x: auto;
+            ">
+                <ol rhu-id="path" class="${style.path}"></ol>
+            </div>
             <div style="
                 width: 100%;
                 height: 1px;

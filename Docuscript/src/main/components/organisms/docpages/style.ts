@@ -182,6 +182,10 @@ RHU.module(new Error(), "components/organsisms/docpages/style",
             padding: 8px 0;
             `;
             style`
+            ${path} li {
+                flex-shrink: 0;
+                text-wrap: nowrap;
+            }
             ${path} > li::after {
                 content: "/";
                 padding: 3px; 0;

@@ -4,7 +4,7 @@ RHU.require(new Error(), {
     docs, rhuDocuscript,
 }) {
     const version = "1.0.0";
-    const path = "Docs/Toolkits/Light Toolkit/LTK";
+    const path = "Docs/Toolkits/Light Toolkit/LightTK/LTK";
     const snippets = `_snippets/${path}`;
     
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
@@ -34,7 +34,7 @@ RHU.require(new Error(), {
         h(1, "Methods");
         twotable([
             {
-                path: "GetIntersection",
+                path: "Methods/GetIntersection",
                 signature: "GetIntersection(Vector3, Vector3, Surface, LightRayHit[], bool, bool)",
                 summary: "Some summary",
             }
