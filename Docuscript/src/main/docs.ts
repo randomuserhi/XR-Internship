@@ -120,6 +120,10 @@ RHU.module(new Error(), "docs", {
             let dirB = this.subDirectories.get(b)!;
             if (dirA.index !== undefined && dirB.index !== undefined && dirA.index !== dirB.index) {
                 return dirA.index - dirB.index;
+            } else if (dirA.index !== undefined) {
+                return -1;
+            } else if (dirB.index !== undefined) {
+                return 1;
             }
             return a.localeCompare(b);
         });
