@@ -237,3 +237,16 @@ Received Import Request.
   path: Assets/LightRayEmitter.cs
   artifactKey: Guid(0eb9c5fa33fcc1644ba044540ae8ff34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/LightRayEmitter.cs using Guid(0eb9c5fa33fcc1644ba044540ae8ff34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12e1207bb2d6437b7f143ed0c05c4c66') in 0.008441 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 18917.541334 seconds.
+  path: Assets/Virtual Reality Toolkit
+  artifactKey: Guid(47c75c2518711a644b6612e003eeff76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Virtual Reality Toolkit using Guid(47c75c2518711a644b6612e003eeff76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '348dabc03fba2298e72d52df6228b6dd') in 0.004688 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.715192 seconds.
+  path: Assets/Virtual Reality Toolkit/VRTKUtils.cs
+  artifactKey: Guid(2ffeade2e54707443b202b8ac42105f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Virtual Reality Toolkit/VRTKUtils.cs using Guid(2ffeade2e54707443b202b8ac42105f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64f7c717ced28590ca3a3d9e980a7b3d') in 0.004455 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

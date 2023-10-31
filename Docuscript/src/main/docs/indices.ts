@@ -53,6 +53,7 @@ declare namespace RHU {
                                 docs.set(`${p}/GetIntersection`, `${p}/GetIntersection.js`);
                             });
                             docs.set(`${p}/Surface`, `${p}/Surface/index.js`);
+                            docs.set(`${p}/Equation`, `${p}/Equation/index.js`);
                         });
                     });
                 });
