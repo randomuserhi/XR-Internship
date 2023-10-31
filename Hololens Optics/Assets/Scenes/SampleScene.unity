@@ -2481,7 +2481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a41f669894321f45841b8fdf87e5c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  device: 1
+  device: 3
   master: {fileID: 154495088}
 --- !u!1001 &2125825554
 PrefabInstance:
