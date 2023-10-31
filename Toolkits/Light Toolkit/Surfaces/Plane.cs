@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace LightTK
 {
@@ -48,6 +50,7 @@ namespace LightTK
             this.maximum = maximum;
         }
 
+#if UNITY_EDITOR
         public override void OnInspectorGUI()
         {
             EditorGUILayout.LabelField("Paraboloid Settings", EditorStyles.boldLabel);
@@ -59,5 +62,6 @@ namespace LightTK
             surface.radial = EditorGUILayout.FloatField("Radius", surface.radial);
             EditorGUILayout.Space();
         }
+#endif
     }
 }

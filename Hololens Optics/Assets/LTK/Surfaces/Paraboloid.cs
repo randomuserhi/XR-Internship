@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace LightTK
 {
@@ -40,6 +42,7 @@ namespace LightTK
             this.maximum = maximum;
         }
 
+#if UNITY_EDITOR
         public override void OnInspectorGUI()
         {
             EditorGUILayout.LabelField("Paraboloid Settings", EditorStyles.boldLabel);
@@ -54,5 +57,6 @@ namespace LightTK
             EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
             scale = EditorGUILayout.Vector2Field("Scale", scale);
         }
+#endif
     }
 }

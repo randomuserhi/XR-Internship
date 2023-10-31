@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace LightTK
 {
@@ -40,6 +42,7 @@ namespace LightTK
             this.maximum = maximum;
         }
 
+#if UNITY_EDITOR
         public override void OnInspectorGUI()
         {
             EditorGUILayout.LabelField("Cylinder Settings", EditorStyles.boldLabel);
@@ -53,5 +56,6 @@ namespace LightTK
             EditorGUILayout.LabelField("Properties", EditorStyles.boldLabel);
             radius = EditorGUILayout.FloatField("Radius", radius);
         }
+#endif
     }
 }
