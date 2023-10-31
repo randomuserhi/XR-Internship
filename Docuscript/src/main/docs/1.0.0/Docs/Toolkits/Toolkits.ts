@@ -5,11 +5,11 @@ RHU.require(new Error(), {
 }) {
     const version = "1.0.0";
     const path = "Docs/Toolkits";
+    const snippets = `_snippets/${path}`;
     
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
-        h, p, div, br, code, link
+        h, p, img, br, frag, link, ol, ul, icode, code, i, pl
     }) => {
-        
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);
     return page;

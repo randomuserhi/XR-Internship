@@ -40,6 +40,7 @@ declare namespace RHUDocuscript {
         };
         mj: {};
         ol: {};
+        ul: {};
         desmos: {
             src: string;
         };
@@ -61,15 +62,16 @@ declare namespace RHUDocuscript {
         div: (...children: (string | Node)[]) => Node<"div">;
         frag: (...children: (string | Node)[]) => Node<"frag">;
 
-        pl: (path: string, index?: number, ...children: (string | Node)[]) => Node<"pl">;
+        pl: (params: [path: string, index?: number], ...children: (string | Node)[]) => Node<"pl">;
         link: (href: string, ...children: (string | Node)[]) => Node<"link">;
 
         mj: (...children: (string | Node)[]) => Node<"mj">;
 
         ol: (...children: (string | Node)[]) => Node<"ol">;
+        ul: (...children: (string | Node)[]) => Node<"ul">;
 
-        code: (language: string | undefined, ...content: (string)[]) => Node<"code">;
-        icode: (language: string | undefined, ...content: (string)[]) => Node<"icode">;
+        code: (params: [language?: string], ...content: (string)[]) => Node<"code">;
+        icode: (params: [language?: string], ...content: (string)[]) => Node<"icode">;
 
         desmos: (src: string) => Node<"desmos">;
     }
@@ -156,6 +158,28 @@ RHU.module(new Error(), "docuscript", {
                 return dom;
             }
         },
+        ul: {
+            create: function(this: context, ...children) {
+                let node: node<"ul"> = {
+                    __type__: "ul",
+                };
+
+                mountChildrenText(this, node, children);
+
+                return node;
+            },
+            parse: function(children) {
+                const dom = document.createElement("ul");
+                for (const child of children) {
+                    const li = document.createElement("li");
+                    const wrapper = document.createElement("div");
+                    wrapper.append(child);
+                    li.append(wrapper);
+                    dom.append(li);
+                }
+                return dom;
+            }
+        },
         ol: {
             create: function(this: context, ...children) {
                 let node: node<"ol"> = {
@@ -215,7 +239,7 @@ RHU.module(new Error(), "docuscript", {
             }
         },
         icode: {
-            create: function(this: context, language: string | undefined, ...children) {
+            create: function(this: context, [language], ...children) {
                 let node: node<"icode"> = {
                     __type__: "icode",
                     language,
@@ -231,19 +255,21 @@ RHU.module(new Error(), "docuscript", {
                 dom.append(...children);
                 if (node.language) {
                     dom.classList.toggle(node.language, true);
+                } else {
+                    dom.classList.toggle("language-plaintext", true);
                 }
                 hljs.highlightElement(dom);
                 return dom;
             },
         },
         code: {
-            create: function(this: context, language: string | undefined, ...children) {
+            create: function(this: context, [language], ...children) {
                 let node: node<"code"> = {
                     __type__: "code",
                     language,
                 };
 
-                mountChildrenText(this, node, children);
+                this.remount(this.nodes.text(children.join("\n")), node);
 
                 return node;
             },
@@ -255,7 +281,7 @@ RHU.module(new Error(), "docuscript", {
             },
         },
         pl: {
-            create: function(this: context, path, index, ...children) {
+            create: function(this: context, [path, index], ...children) {
                 let node: node<"pl"> = {
                     __type__: "pl",
                     path,

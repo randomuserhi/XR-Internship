@@ -8,7 +8,7 @@ RHU.require(new Error(), {
     const snippets = `_snippets/${path}`;
 
     const page = docuscript<RHUDocuscript.Language, RHUDocuscript.FuncMap>(({
-        h, p, img, br, frag, link, ol, icode, i
+        h, p, img, br, frag, link, ol, ul, icode, i, pl
     }) => {
         p(
             "This page outlines how to get started with setting up an XR environment for use with either the Hololens or Oculus Quest."
@@ -31,17 +31,17 @@ RHU.require(new Error(), {
             ),
             frag(
                 p(
-                    "Navigate to ", icode(undefined, "Installs"), " on the left panel and click ", icode(undefined, "Install Editor"), " on the top right:"
+                    "Navigate to ", icode([], "Installs"), " on the left panel and click ", icode([], "Install Editor"), " on the top right:"
                 ),
                 img(`${snippets}/unityhub_setup0.png`)
             ),
             frag(
                 p(
-                    "Choose version ", link("https://unity.com/releases/editor/whats-new/2020.3.40", icode(undefined, "Unity 2020.3.40.f1")), 
+                    "Choose version ", link("https://unity.com/releases/editor/whats-new/2020.3.40", icode([], "Unity 2020.3.40.f1")), 
                     " (or whatever 2020 LTS version is available)"
                 ),
                 i(
-                    "NOTE:: The reason why ", icode(undefined, "2020.3.40f1"), " is used over the current LTS is because it is more stable with the hololens as of when this document was written. ",
+                    "NOTE:: The reason why ", icode([], "2020.3.40f1"), " is used over the current LTS is because it is more stable with the hololens as of when this document was written. ",
                     "Refer to ", link("https://learn.microsoft.com/en-us/windows/mixed-reality/develop/unity/known-issues", "Microsoft's known issues page")    
                 ),
                 img(`${snippets}/unityhub_setup1.png`)
@@ -69,7 +69,7 @@ RHU.require(new Error(), {
         ol(
             frag(
                 p(
-                    "Turn on ", icode(undefined, "Developer Mode"), " in windows settings on ", i("both"), " the hololens and desktop: (Make sure they are paired, click pair on hololens ",
+                    "Turn on ", icode([], "Developer Mode"), " in windows settings on ", i("both"), " the hololens and desktop: (Make sure they are paired, click pair on hololens ",
                     "and input code)"
                 ),
                 img(`${snippets}/hololens_setup0.png`)
@@ -92,24 +92,31 @@ RHU.require(new Error(), {
                 p("Connect to Oculus on mobile app using bluetooth."),
                 ol(
                     frag(
-                        p("Go to ", icode(undefined, "menu"), " in the bottom right and select devices:"),
+                        p("Go to ", icode([], "menu"), " in the bottom right and select devices:"),
                         img(`${snippets}/oculus_setup1.png`, "60%")
                     ),
                     frag(
-                        p("Scroll down to ", icode(undefined, "Developer Mode"), "."),
+                        p("Scroll down to ", icode([], "Developer Mode"), "."),
                         img(`${snippets}/oculus_setup2.png`, "60%")
                     ),
                     frag(
-                        p("Enable ", icode(undefined, "Developer Mode"), "."),
+                        p("Enable ", icode([], "Developer Mode"), "."),
                         img(`${snippets}/oculus_setup3.png`, "40%")
                     )
                 )
             ),
             p("Install the ", link("https://developer.oculus.com/downloads/package/oculus-adb-drivers/", "Oculus adb drivers"), "."),
             p(
-                "Connect the headset to your PC via link cable (USB-C connection). When you put the headset on it should prompt you to enable ", icode(undefined, "USB Debugging"), ". Click ",
-                icode(undefined, "Allow"), "."
+                "Connect the headset to your PC via link cable (USB-C connection). When you put the headset on it should prompt you to enable ", icode([], "USB Debugging"), ". Click ",
+                icode([], "Allow"), "."
             )
+        );
+
+        h(1, "What next?")
+        p("Now that you have setup your working environment check out the next steps:");
+        ul(
+            pl(["Docs/Creating a New Project"], "Creating a New Project"),
+            pl(["Docs/Building and Deploying"], "Building and Deploying")
         );
     }, rhuDocuscript);
     docs.get(version)!.setCache(path, page);

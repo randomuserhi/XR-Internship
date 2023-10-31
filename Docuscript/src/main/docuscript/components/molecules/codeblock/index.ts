@@ -31,6 +31,8 @@ RHU.module(new Error(), "docuscript/components/molecules/codeblock", {
         codeblock.prototype.setLanguage = function(language) {
             if (language) {
                 this.code.classList.toggle(language, true);
+            } else {
+                this.code.classList.toggle("language-plaintext", true);
             }
             hljs.highlightElement(this.code);
         };

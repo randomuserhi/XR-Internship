@@ -21,6 +21,7 @@ RHU.module(new Error(), "docuscript/style",
             ${body} p,
             ${body} li,
             ${body} ol,
+            ${body} ul,
             ${body} div {
                 width: 100%;
             }
@@ -76,6 +77,9 @@ RHU.module(new Error(), "docuscript/style",
             style`
             ${body} ol {
                 counter-reset: list-item;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
             }
             ${body} ol>li {
                 display: flex;
@@ -84,6 +88,17 @@ RHU.module(new Error(), "docuscript/style",
             ${body} ol>li::before {
                 content: counter(list-item) ") ";
                 counter-increment: list-item;
+            }
+            `;
+
+            // UNORDERED LISTS
+            style`
+            ${body} ul>li {
+                display: flex;
+                gap: 1rem;
+            }
+            ${body} ul>li::before {
+                content: "•";
             }
             `;
 
@@ -99,6 +114,14 @@ RHU.module(new Error(), "docuscript/style",
             const inlineCode = style.class`
             padding: 0 3px;
             border-radius: 3px;
+            `;
+
+            // CODE
+            style`
+            ${body} code {
+                border-radius: 8px;
+                margin: 8px auto;
+            }
             `;
 
             return {
