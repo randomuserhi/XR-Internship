@@ -39,6 +39,7 @@ declare namespace Molecules {
         search: HTMLInputElement;
         path: HTMLDivElement;
         list: HTMLDivElement;
+        body: HTMLDivElement;
     }
 }
 
@@ -251,7 +252,21 @@ RHU.module(new Error(), "components/molecules/filterlist", {
                         page = page.parent as Page;
                     }
                     if (seek) {
-                        setTimeout(() => directory.dom!.scrollIntoView({ behavior: "smooth" }), 100);
+                        setTimeout(() => {
+                            let scroll: boolean = false;
+                            if (this.body.scrollTop > 0) {
+                                scroll = true;
+                            } else {
+                                this.body.scrollTop = 1;
+                                if (this.body.scrollTop > 0) {
+                                    scroll = true;
+                                    this.body.scrollTop = 0;
+                                }
+                            }
+                            if (scroll) {
+                                this.body.scroll(0, directory.dom!.offsetTop - this.body.offsetTop);
+                            }
+                        }, 100);
                     }
                 }
             }
@@ -260,7 +275,7 @@ RHU.module(new Error(), "components/molecules/filterlist", {
         return filterlist;
     })(), "molecules/filterlist", //html
         `
-        <div class="${style.content}">
+        <div rhu-id="body" class="${style.content}">
             <div style="font-weight: 800; font-size: 1.125rem;">Version</div>
             <rhu-macro rhu-id="version" rhu-type="${dropdown}" style="
                 width: 100%;

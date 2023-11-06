@@ -280,7 +280,9 @@ RHU.module(new Error(), "components/organisms/docpages", {
                                 window.history.pushState(undefined, "", link);
                             }
 
-                            (dom as HTMLElement).scrollIntoView(true);
+                            //(dom as HTMLElement).scrollIntoView(true);
+                            document.documentElement.scroll(0, (dom as HTMLElement).offsetTop - document.documentElement.offsetTop - 
+                                parseInt(getComputedStyle(document.documentElement).getPropertyValue('--Navbar_height')));
                         }
                         
                         let depth = depths.length === 0 ? Infinity : depths[depths.length - 1];
@@ -302,7 +304,9 @@ RHU.module(new Error(), "components/organisms/docpages", {
                             }
 
                             const node = e.detail.target as HTMLElement;
-                            node.scrollIntoView(true);
+                            //node.scrollIntoView(true);
+                            document.documentElement.scroll(0, node.offsetTop - document.documentElement.offsetTop - 
+                                parseInt(getComputedStyle(document.documentElement).getPropertyValue('--Navbar_height')));
                         });
                         item.target = dom;
                         if (index === _i) {
@@ -352,7 +356,9 @@ RHU.module(new Error(), "components/organisms/docpages", {
                         }
 
                         const node = e.detail.target as HTMLElement;
-                        node.scrollIntoView(true);
+                        //node.scrollIntoView(true);
+                        document.documentElement.scroll(0, node.offsetTop - document.documentElement.offsetTop - 
+                            parseInt(getComputedStyle(document.documentElement).getPropertyValue('--Navbar_height')));
                     });
                     item.target = this.path; //this.pageTitle; // Scroll to path cause thats at the very top instead of just to the first title
                     item.set(directory ? directory.name : "Top", undefined, directory);
@@ -363,7 +369,9 @@ RHU.module(new Error(), "components/organisms/docpages", {
             }
             requestAnimationFrame(() => { 
                 if (scrollTarget) {
-                    scrollTarget.scrollIntoView(true);
+                    //scrollTarget.scrollIntoView(true);
+                    document.documentElement.scroll(0, scrollTarget.offsetTop - document.documentElement.offsetTop - 
+                        parseInt(getComputedStyle(document.documentElement).getPropertyValue('--Navbar_height')));
                 } else if (scrollTop) {
                     document.documentElement.scrollTop = 0;
                 }

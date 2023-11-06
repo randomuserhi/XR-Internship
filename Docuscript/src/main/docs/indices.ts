@@ -32,6 +32,9 @@ declare namespace RHU {
             };
 
             docs.set("Durham VR Physics Project", "Durham VR Physics Project.js", 0);
+            for (let i = 0; i < 100; ++i) {
+                docs.set(`${i}`, undefined, -1);
+            }
             docs.set(`Docs`, undefined, 1);
             dir("Docs", (p) => {
                 docs.set(`${p}/Getting Started`, `${p}/Getting Started.js`, 0);
