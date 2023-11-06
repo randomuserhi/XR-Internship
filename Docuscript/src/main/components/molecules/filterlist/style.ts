@@ -42,6 +42,11 @@ RHU.module(new Error(), "components/molecules/filterlist/style",
             flex-direction: column;
             gap: 8px;
             `
+            style`
+            ${content} > * {
+                flex-shrink: 0;
+            }
+            `;
 
             const path = style.class<{
                 item: RHU.Style.ClassName;

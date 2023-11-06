@@ -57,6 +57,8 @@ RHU.module(new Error(), "components/molecules/filterlist", {
 }) {
     const filteritem = Macro((() => {
         const filteritem = function(this: Atoms.Filteritem) {
+            this.classList.toggle(`${style.filteritem.expanded}`, true);
+
             this.label.addEventListener("click", (e) => {
                 this.dispatchEvent(RHU.CustomEvent("view", { target: this.page }));
                 e.preventDefault(); // stop redirect
@@ -221,14 +223,15 @@ RHU.module(new Error(), "components/molecules/filterlist", {
         filterlist.prototype.setActive = function(path, seek) {
             this.activePath = path;
 
-            if (seek) {
+            // Sets filterlist path to seeked location => deprecated behaviour
+            /*if (seek) {
                 const parts = docs.split(path);
                 if (parts.length > 1) {
                     this.setPath(parts.slice(0, parts.length - 1).join("/"));
                 } else {
                     this.setPath();
                 }
-            }
+            }*/
 
             if (this.lastActive) {
                 this.lastActive.body.classList.toggle(`${style.filteritem.active}`, false); // TODO(randomuserhi): Make into a filteritem function called "toggleActive" or something
@@ -246,6 +249,9 @@ RHU.module(new Error(), "components/molecules/filterlist", {
                             page.dom.classList.toggle(`${style.filteritem.expanded}`, true); // TODO(randomuserhi): Make into a filteritem function called "toggleExpand" or something
                         }
                         page = page.parent as Page;
+                    }
+                    if (seek) {
+                        setTimeout(() => directory.dom!.scrollIntoView({ behavior: "smooth" }), 100);
                     }
                 }
             }

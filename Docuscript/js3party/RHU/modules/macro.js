@@ -360,14 +360,26 @@
                 }
             }
             let macros = document.querySelectorAll("[rhu-macro]");
-            for (let el of macros)
+            for (let el of macros) {
                 Macro.parse(el, Element_getAttribute(el, "rhu-macro"));
+            }
+            requestAnimationFrame(() => {
+                for (let el of macros) {
+                    recursiveDispatch(el);
+                }
+            });
             Macro.observe(document);
+        };
+        let recursiveDispatch = function (node) {
+            if (isElement(node) && Element_hasAttribute(node, "rhu-macro"))
+                node.dispatchEvent(RHU.CustomEvent("mount", {}));
+            for (let child of node.childNodes)
+                recursiveDispatch(child);
         };
         let recursiveParse = function (node) {
             if (isElement(node) && Element_hasAttribute(node, "rhu-macro")) {
                 Macro.parse(node, Element_getAttribute(node, "rhu-macro"));
-                node.dispatchEvent(RHU.CustomEvent("mount", {}));
+                recursiveDispatch(node);
                 return;
             }
             for (let child of node.childNodes)

@@ -16,17 +16,6 @@ RHU.module(new Error(), "docuscript/style",
             const body = style.class`
             `;
 
-            // BASE - change this, cause images should have a wrapper of width 100% instead of this nonsense
-            style`
-            ${body} p,
-            ${body} li,
-            ${body} ol,
-            ${body} ul,
-            ${body} {
-                width: 100%;
-            }
-            `;
-
             // TABLES
             style`
             ${body} table {
